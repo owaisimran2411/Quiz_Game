@@ -1,0 +1,3693 @@
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    11/28/19 15:28:16
+My First Program (Text.asm				     Page 1 - 1
+
+
+
+				TITLE My First Program (Text.asm)
+				INCLUDE Irvine32.inc
+			      C ; Include file for Irvine32.lib             (Irvine32.inc)
+			      C 
+			      C ;OPTION CASEMAP:NONE		; optional: make identifiers case-sensitive
+			      C 
+			      C INCLUDE SmallWin.inc		; MS-Windows prototypes, structures, and constants
+			      C .NOLIST
+			      C .LIST
+			      C 
+			      C INCLUDE VirtualKeys.inc
+			      C ; VirtualKeys.inc
+			      C .NOLIST
+			      C .LIST
+			      C 
+			      C 
+			      C .NOLIST
+			      C .LIST
+			      C 
+ 00000000			.data
+							;; 1- msg for the procedure of Newton_Law
+ 00000000 46 69 6E 64 20		Pmsg1 byte "Find the value of force if the value of m and a are: ",0
+	   74 68 65 20 76
+	   61 6C 75 65 20
+	   6F 66 20 66 6F
+	   72 63 65 20 69
+	   66 20 74 68 65
+	   20 76 61 6C 75
+	   65 20 6F 66 20
+	   6D 20 61 6E 64
+	   20 61 20 61 72
+	   65 3A 20 00
+
+							;; 2- msg for the procedure of Kinetic_Energy
+ 00000036 46 69 6E 64 20		Pmsg4 byte "Find the value of Kinetic Energy if the value of mass and velocity are: ",0
+	   74 68 65 20 76
+	   61 6C 75 65 20
+	   6F 66 20 4B 69
+	   6E 65 74 69 63
+	   20 45 6E 65 72
+	   67 79 20 69 66
+	   20 74 68 65 20
+	   76 61 6C 75 65
+	   20 6F 66 20 6D
+	   61 73 73 20 61
+	   6E 64 20 76 65
+	   6C 6F 63 69 74
+	   79 20 61 72 65
+	   3A 20 00
+
+							;; 3- msg for the procedure of Centripetal_Acceleration
+ 0000007F 46 69 6E 64 20		Pmsg5 byte "Find the value of Centripetal Acceleration if the value of velocity and radius are: ",0
+	   74 68 65 20 76
+	   61 6C 75 65 20
+	   6F 66 20 43 65
+	   6E 74 72 69 70
+	   65 74 61 6C 20
+	   41 63 63 65 6C
+	   65 72 61 74 69
+	   6F 6E 20 69 66
+	   20 74 68 65 20
+	   76 61 6C 75 65
+	   20 6F 66 20 76
+	   65 6C 6F 63 69
+	   74 79 20 61 6E
+	   64 20 72 61 64
+	   69 75 73 20 61
+	   72 65 3A 20 00
+							
+							;; 4- msg for the procedure of Current
+ 000000D4 46 69 6E 64 20		Pmsg6 byte "Find the value of Current if the value of charge and time is: ",0
+	   74 68 65 20 76
+	   61 6C 75 65 20
+	   6F 66 20 43 75
+	   72 72 65 6E 74
+	   20 69 66 20 74
+	   68 65 20 76 61
+	   6C 75 65 20 6F
+	   66 20 63 68 61
+	   72 67 65 20 61
+	   6E 64 20 74 69
+	   6D 65 20 69 73
+	   3A 20 00
+					
+							;; 5- msg for the procedure of Torque
+ 00000113 46 69 6E 64 20		Pmsg7 byte "Find the value of torque if the value of Force and displacement are: ",0
+	   74 68 65 20 76
+	   61 6C 75 65 20
+	   6F 66 20 74 6F
+	   72 71 75 65 20
+	   69 66 20 74 68
+	   65 20 76 61 6C
+	   75 65 20 6F 66
+	   20 46 6F 72 63
+	   65 20 61 6E 64
+	   20 64 69 73 70
+	   6C 61 63 65 6D
+	   65 6E 74 20 61
+	   72 65 3A 20 00
+					
+							;; 6- msg for the procedure of velocity
+ 00000159 46 69 6E 64 20		Pmsg8 byte "Find the value of velocity if the value of displacement and time are: ",0
+	   74 68 65 20 76
+	   61 6C 75 65 20
+	   6F 66 20 76 65
+	   6C 6F 63 69 74
+	   79 20 69 66 20
+	   74 68 65 20 76
+	   61 6C 75 65 20
+	   6F 66 20 64 69
+	   73 70 6C 61 63
+	   65 6D 65 6E 74
+	   20 61 6E 64 20
+	   74 69 6D 65 20
+	   61 72 65 3A 20
+	   00
+					
+							;; 7- msg for the procedure of distance
+ 000001A0 46 69 6E 64 20		Pmsg9 byte "Find the value of distance if the value of velocity and time are: ",0
+	   74 68 65 20 76
+	   61 6C 75 65 20
+	   6F 66 20 64 69
+	   73 74 61 6E 63
+	   65 20 69 66 20
+	   74 68 65 20 76
+	   61 6C 75 65 20
+	   6F 66 20 76 65
+	   6C 6F 63 69 74
+	   79 20 61 6E 64
+	   20 74 69 6D 65
+	   20 61 72 65 3A
+	   20 00
+					
+							;; 8- msg for the procedure of angular velocity 
+ 000001E3 46 69 6E 64 20		Pmsg10 byte "Find the value of angular velocity if the value of linear velocity and radius are: ",0
+	   74 68 65 20 76
+	   61 6C 75 65 20
+	   6F 66 20 61 6E
+	   67 75 6C 61 72
+	   20 76 65 6C 6F
+	   63 69 74 79 20
+	   69 66 20 74 68
+	   65 20 76 61 6C
+	   75 65 20 6F 66
+	   20 6C 69 6E 65
+	   61 72 20 76 65
+	   6C 6F 63 69 74
+	   79 20 61 6E 64
+	   20 72 61 64 69
+	   75 73 20 61 72
+	   65 3A 20 00
+					
+							;; 9- msg for the procedure of speed of wave	 
+ 00000237 46 69 6E 64 20		Pmsg11 byte "Find the value for the speed if the value of velocity and frequency are: ",0
+	   74 68 65 20 76
+	   61 6C 75 65 20
+	   66 6F 72 20 74
+	   68 65 20 73 70
+	   65 65 64 20 69
+	   66 20 74 68 65
+	   20 76 61 6C 75
+	   65 20 6F 66 20
+	   76 65 6C 6F 63
+	   69 74 79 20 61
+	   6E 64 20 66 72
+	   65 71 75 65 6E
+	   63 79 20 61 72
+	   65 3A 20 00
+
+							;; 10- msg for the proecudue of frequency and time period
+ 00000281 46 69 6E 64 20		Pmsg12 byte "Find the value of frequency if the value of velocity and lambda is: ",0
+	   74 68 65 20 76
+	   61 6C 75 65 20
+	   6F 66 20 66 72
+	   65 71 75 65 6E
+	   63 79 20 69 66
+	   20 74 68 65 20
+	   76 61 6C 75 65
+	   20 6F 66 20 76
+	   65 6C 6F 63 69
+	   74 79 20 61 6E
+	   64 20 6C 61 6D
+	   62 64 61 20 69
+	   73 3A 20 00
+
+							;; 11- msg for the procedure of linear momentum
+ 000002C6 46 69 6E 64 20		Pmsg13 byte "Find the value of linear momentum if the value of mass and velocity is: ",0
+	   74 68 65 20 76
+	   61 6C 75 65 20
+	   6F 66 20 6C 69
+	   6E 65 61 72 20
+	   6D 6F 6D 65 6E
+	   74 75 6D 20 69
+	   66 20 74 68 65
+	   20 76 61 6C 75
+	   65 20 6F 66 20
+	   6D 61 73 73 20
+	   61 6E 64 20 76
+	   65 6C 6F 63 69
+	   74 79 20 69 73
+	   3A 20 00
+							
+								;; all variables
+ 0000030F  0000000D [			Mean byte 13 DUP (?)		;; variable for mean
+	    00
+	   ]
+ 0000031C 00				valY byte ?
+ 0000031D 00				valM byte ?
+ 0000031E 00				valC byte ?
+ 0000031F  00000019 [			Median1 byte 25 DUP (?)
+	    00
+	   ]
+ 00000338  0000000F [			ModeArr byte 15 DUP (?)
+	    00
+	   ]
+ 00000347  0000000A [			FreqMode byte 10 DUP (?)
+	    00
+	   ]
+ 00000351 0A				divTerm byte 10
+ 00000352 00				max byte ?
+ 00000353 00000000			index dword ?
+ 00000357  0000000F [			Summation byte 15 DUP (?)
+	    00
+	   ]
+
+						;; 1- msgs for median procedure
+ 00000366 43 61 6C 63 75		Smsg1 byte "Calculate the median of the following sequence: ",0
+	   6C 61 74 65 20
+	   74 68 65 20 6D
+	   65 64 69 61 6E
+	   20 6F 66 20 74
+	   68 65 20 66 6F
+	   6C 6C 6F 77 69
+	   6E 67 20 73 65
+	   71 75 65 6E 63
+	   65 3A 20 00
+
+						;; 2- msgs for mean procedure
+ 00000397 43 61 6C 63 75		Smsg2 byte "Calculate the mean of the following sequence: ",0
+	   6C 61 74 65 20
+	   74 68 65 20 6D
+	   65 61 6E 20 6F
+	   66 20 74 68 65
+	   20 66 6F 6C 6C
+	   6F 77 69 6E 67
+	   20 73 65 71 75
+	   65 6E 63 65 3A
+	   20 00
+
+						;; 3- msgs for interpolating procedure
+ 000003C6 43 61 6C 63 75		Smsg3 byte "Calculate the slope of the following equation: ",0
+	   6C 61 74 65 20
+	   74 68 65 20 73
+	   6C 6F 70 65 20
+	   6F 66 20 74 68
+	   65 20 66 6F 6C
+	   6C 6F 77 69 6E
+	   67 20 65 71 75
+	   61 74 69 6F 6E
+	   3A 20 00
+ 000003F6 59 3D 20 00			Smsg3i byte "Y= ",0
+ 000003FA 58 20 2B 20 00		Smsg3ii byte "X + ",0
+
+						;; 4- msgs for mode procedure
+ 000003FF 43 61 6C 63 75		Smsg4 byte "Calculate the mode of the following procedure: ",0
+	   6C 61 74 65 20
+	   74 68 65 20 6D
+	   6F 64 65 20 6F
+	   66 20 74 68 65
+	   20 66 6F 6C 6C
+	   6F 77 69 6E 67
+	   20 70 72 6F 63
+	   65 64 75 72 65
+	   3A 20 00
+
+						;; 5- msgs for summation procedure
+ 0000042F 43 61 6C 63 75		Smsg5 byte "Calculate the sum value of: ",0
+	   6C 61 74 65 20
+	   74 68 65 20 73
+	   75 6D 20 76 61
+	   6C 75 65 20 6F
+	   66 3A 20 00
+
+
+ 0000044C 20 00				msg byte " ",0
+ 0000044E 2C 00				msg1 byte ",",0
+ 00000450 5F 5F 5F 5F 00		msg2 byte "____",0
+							;; variable for all procedures
+ 00000455 00				valAcc byte ?				;; Acceleration
+ 00000456 00				valForce byte ?				;; Force
+ 00000457 00				valMass byte ?				;; Mass
+ 00000458 00				valVelocity byte ?			;; Velocity
+ 00000459 00				valRadius byte ?			;; Radius
+ 0000045A 00				valCharge byte ?			;; Charge
+ 0000045B 00				valTime byte ?				;; Time
+ 0000045C 00				valDisplacement byte ?		;; Displacement
+ 0000045D 00				valFrequency byte ?			;; Frequency
+ 0000045E 00				valLambda byte ?				;; Lambda
+ 0000045F 02				valMultiplier byte 2
+
+ 00000460 00				PalindromicNumber byte ?
+ 00000461 00				PalindromicNumberReverse byte ?
+ 00000462 0A				mulTerm1 byte 10
+ 00000463 64				mulTerm2 byte 100
+ 00000464 03				mulTerm3 byte 3
+ 00000465  0000000F [			Series byte 15 DUP (?)
+	    00
+	   ]
+ 00000474 00				First_Term byte ?
+ 00000475 00				Common_Diff byte ?
+ 00000476 0000				GFirst_Term word ?
+ 00000478 0000				GCommon_Diff word ?
+ 0000047A  00000006 [			GSeries word 6 DUP (?)
+	    0000
+	   ]
+ 00000486 00				CompositeNumber byte ?
+ 00000487 00				temp byte ?
+ 00000488 00				FirstNumber byte ?
+ 00000489 00				SecondNumber byte ?
+ 0000048A 0000				ValSquareFree word ?
+ 0000048C 00				valSquare byte ?
+
+							;; 1-> Msg for Arithmetic Series and Geometric Series
+ 0000048D 49 64 65 6E 74		Mmsg1 byte "Identify the next number in the following series: ",0
+	   69 66 79 20 74
+	   68 65 20 6E 65
+	   78 74 20 6E 75
+	   6D 62 65 72 20
+	   69 6E 20 74 68
+	   65 20 66 6F 6C
+	   6C 6F 77 69 6E
+	   67 20 73 65 72
+	   69 65 73 3A 20
+	   00
+
+							;; 2-> Msg for Palindromic Number Procedure
+ 000004C0 49 64 65 6E 74		Mmsg2 byte "Identify if the given number is palindromic or not: ",0
+	   69 66 79 20 69
+	   66 20 74 68 65
+	   20 67 69 76 65
+	   6E 20 6E 75 6D
+	   62 65 72 20 69
+	   73 20 70 61 6C
+	   69 6E 64 72 6F
+	   6D 69 63 20 6F
+	   72 20 6E 6F 74
+	   3A 20 00
+
+							;; 3-> Msg for triangle Number
+ 000004F5 43 6F 6E 73 69		Mmsg3 byte "Consider a triangle number of length: ",0
+	   64 65 72 20 61
+	   20 74 72 69 61
+	   6E 67 6C 65 20
+	   6E 75 6D 62 65
+	   72 20 6F 66 20
+	   6C 65 6E 67 74
+	   68 3A 20 00
+
+							;; 4-> Msg for Composite Number
+ 0000051C 49 64 65 6E 74		Mmsg4 byte "Identify if the number is composite or not: ",0
+	   69 66 79 20 69
+	   66 20 74 68 65
+	   20 6E 75 6D 62
+	   65 72 20 69 73
+	   20 63 6F 6D 70
+	   6F 73 69 74 65
+	   20 6F 72 20 6E
+	   6F 74 3A 20 00
+
+							;; 5-> Msg for pentagonal number 
+ 00000549 46 69 6E 64 20		Mmsg5 byte "Find the pentagonal number of the given length: ",0
+	   74 68 65 20 70
+	   65 6E 74 61 67
+	   6F 6E 61 6C 20
+	   6E 75 6D 62 65
+	   72 20 6F 66 20
+	   74 68 65 20 67
+	   69 76 65 6E 20
+	   6C 65 6E 67 74
+	   68 3A 20 00
+						
+							;; 6-> Msg for Relatively Prime number
+ 0000057A 46 69 6E 64 20		Mmsg6 byte "Find if the two numbers are relativey Prime Or Not: ",0
+	   69 66 20 74 68
+	   65 20 74 77 6F
+	   20 6E 75 6D 62
+	   65 72 73 20 61
+	   72 65 20 72 65
+	   6C 61 74 69 76
+	   65 79 20 50 72
+	   69 6D 65 20 4F
+	   72 20 4E 6F 74
+	   3A 20 00
+
+							;; 7-> Msg for checking if the given number is Square Free or Not
+ 000005AF 49 64 65 6E 74		Mmsg7 byte "Identify if the given number is Square Free or Not: ",0
+	   69 66 79 20 69
+	   66 20 74 68 65
+	   20 67 69 76 65
+	   6E 20 6E 75 6D
+	   62 65 72 20 69
+	   73 20 53 71 75
+	   61 72 65 20 46
+	   72 65 65 20 6F
+	   72 20 4E 6F 74
+	   3A 20 00
+
+							;; 8-> Msg for cube number
+ 000005E4 49 64 65 6E 74		Mmsg8 byte "Identify the cube of given number: ",0
+	   69 66 79 20 74
+	   68 65 20 63 75
+	   62 65 20 6F 66
+	   20 67 69 76 65
+	   6E 20 6E 75 6D
+	   62 65 72 3A 20
+	   00
+
+							;; 9-> Msg for square number
+ 00000608 49 64 65 6E 74		Mmsg9 byte "Identify the square of the following number : ",0
+	   69 66 79 20 74
+	   68 65 20 73 71
+	   75 61 72 65 20
+	   6F 66 20 74 68
+	   65 20 66 6F 6C
+	   6C 6F 77 69 6E
+	   67 20 6E 75 6D
+	   62 65 72 20 3A
+	   20 00
+
+							;; variables for options
+ 00000637 0000				CorrectAnswer word ?
+ 00000639  00000003 [			OtherOptions word 3 DUP (?)
+	    0000
+	   ]
+ 0000063F 00				Total_Score byte ?
+ 00000640 00000000			stime dword ?
+							;; msgs for displaying answers
+ 00000644 61 29 20 20 20		Options1 byte "a)   ",0
+	   00
+ 0000064A 62 29 20 20 20		Options2 byte "b)   ",0
+	   00
+ 00000650 63 29 20 20 20		Options3 byte "c)   ",0
+	   00
+ 00000656 64 29 20 20 20		Options4 byte "d)   ",0
+	   00
+ 0000065C 54 72 75 65 00		TrueMsg byte "True",0
+ 00000661 46 61 6C 73 65		FalseMsg byte "False",0
+	   00
+
+
+							;; msg for asking the answer from user
+ 00000667 45 6E 74 65 72		AnswerMsg byte "Enter your option number corresponding value: ",0
+	   20 79 6F 75 72
+	   20 6F 70 74 69
+	   6F 6E 20 6E 75
+	   6D 62 65 72 20
+	   63 6F 72 72 65
+	   73 70 6F 6E 64
+	   69 6E 67 20 76
+	   61 6C 75 65 3A
+	   20 00
+ 00000696 45 6E 74 65 72		AnswerMsg1 byte "Enter your option number corresponding character (T/F): ",0 
+	   20 79 6F 75 72
+	   20 6F 70 74 69
+	   6F 6E 20 6E 75
+	   6D 62 65 72 20
+	   63 6F 72 72 65
+	   73 70 6F 6E 64
+	   69 6E 67 20 63
+	   68 61 72 61 63
+	   74 65 72 20 28
+	   54 2F 46 29 3A
+	   20 00
+ 000006CF 59 6F 75 72 20		TotalScoreMsg byte "Your Total Score is: ",0
+	   54 6F 74 61 6C
+	   20 53 63 6F 72
+	   65 20 69 73 3A
+	   20 00
+ 000006E5 09 09 3D 3D 3D		WelcomeMaths byte "		==============================MATHEMATICS SECTION===================================",0
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 4D 41 54
+	   48 45 4D 41 54
+	   49 43 53 20 53
+	   45 43 54 49 4F
+	   4E 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 00
+ 0000073C 09 09 09 3D 3D		WelcomePhysics byte "			==============================PHYSICS SECTION===================================",0
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 50 48
+	   59 53 49 43 53
+	   20 53 45 43 54
+	   49 4F 4E 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 00
+ 00000790 09 20 20 20 09		WelcomeStats byte "	   	==============================STATISTICS SECTION===================================",0
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   53 54 41 54 49
+	   53 54 49 43 53
+	   20 53 45 43 54
+	   49 4F 4E 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 3D 3D
+	   3D 3D 3D 00
+ 000007E9 09 09 2A 2A 2A		WelcomeQuiz byte "		*************************************************************************************",0
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 00
+ 00000841 09 09 09 09 09		WelcomeQuiz1 byte "						WELCOME TO THE QUIZ TEST",0
+	   09 57 45 4C 43
+	   4F 4D 45 20 54
+	   4F 20 54 48 45
+	   20 51 55 49 5A
+	   20 54 45 53 54
+	   00
+					;;msg for menu
+ 00000860 09 09 09 09 09		menu1 byte "					Enter your choice :",0
+	   45 6E 74 65 72
+	   20 79 6F 75 72
+	   20 63 68 6F 69
+	   63 65 20 3A 00
+ 00000879 09 09 09 09 09		menu2 byte "					1->		Physics",0
+	   31 2D 3E 09 09
+	   50 68 79 73 69
+	   63 73 00
+ 0000088B 09 09 09 09 09		menu3 byte "					2->		Mathematics",0
+	   32 2D 3E 09 09
+	   4D 61 74 68 65
+	   6D 61 74 69 63
+	   73 00
+ 000008A1 09 09 09 09 09		menu4 byte "					3->		Statistics",0
+	   33 2D 3E 09 09
+	   53 74 61 74 69
+	   73 74 69 63 73
+	   00
+ 000008B6 09 09 09 09 09		menu5 byte "					4->		Exit",0
+	   34 2D 3E 09 09
+	   45 78 69 74 00
+ 000008C5 49 6E 76 61 6C		ErrorMsg byte "Invalid Input!",0
+	   69 64 20 49 6E
+	   70 75 74 21 00
+					
+							;;array for printing the write ans in radom position
+ 000008D4  00000004 [			print1 word 4 dup(?)
+	    0000
+	   ]
+
+							;; variable for keeping track of all the questions generated to avoid repetation
+ 000008DC  00000005 [			PhysicsQuestionCount byte 5 DUP (?)
+	    00
+	   ]
+ 000008E1  00000003 [			StatisticsQuestionCount byte 3 DUP (?)
+	    00
+	   ]
+ 000008E4  00000005 [			MathsQuestionCount byte 5 DUP (?) 
+	    00
+	   ]
+
+ 000008E9 00				StatisticsQNumber byte ?
+ 000008EA 00				PhysicsQNumber byte ?
+ 000008EB 00				MathsQNumber byte ?
+ 000008EC 00				Count byte 0
+ 00000000			.code
+
+ 00000000			Score PROC
+ 00000000  B8 00000000			mov eax,0
+ 00000005  E8 00000000 E		Call GetMSeconds
+ 0000000A  A3 00000640 R		mov stime,eax
+ 0000000F  BA 00000667 R		mov edx,offset AnswerMsg
+ 00000014  E8 00000000 E		Call WriteString
+ 00000019  E8 00000000 E		Call ReadInt
+ 0000001E  E8 00000000 E		Call GetMSeconds
+ 00000023  2B 05 00000640 R		sub eax,stime
+ 00000029  3D 00002710			cmp eax,10000
+ 0000002E  77 11			ja Outside
+ 00000030  66| 3B 05			cmp ax,CorrectAnswer
+	   00000637 R
+ 00000037  74 02			je ChangeScore
+ 00000039  EB 06			jmp OutSide
+ 0000003B				ChangeScore:
+ 0000003B  FE 05 0000063F R			inc Total_Score
+
+ 00000041				OutSide:
+ 00000041  E8 00000000 E			Call Crlf
+ 00000046  BA 000006CF R			mov edx,offset TotalScoreMsg
+ 0000004B  E8 00000000 E			Call WriteString
+ 00000050  BA 0000044C R			mov edx,offset msg
+ 00000055  E8 00000000 E			Call WriteString
+ 0000005A  0F B6 05				movzx eax,Total_Score
+	   0000063F R
+ 00000061  E8 00000000 E			Call WriteDec
+ 00000066  B8 00000000				mov eax,0
+ 0000006B  E8 00000000 E			Call Crlf
+ 00000070  C3			ret
+ 00000071			Score ENDP
+
+ 00000071			Physics PROC
+
+ 00000071  A0 000008EA R		mov al,PhysicsQNumber
+ 00000076  3C 01			cmp al,1
+ 00000078  74 28			je NewtonLawCalling
+ 0000007A  3C 02			cmp al,2
+ 0000007C  74 2B			je CurrentCalling
+ 0000007E  3C 03			cmp al,3
+ 00000080  74 2E			je TorqueCalling
+ 00000082  3C 04			cmp al,4
+ 00000084  74 31			je VelocityCalling
+ 00000086  3C 05			cmp al,5
+ 00000088  74 34			je  DisplacementCalling
+ 0000008A  3C 06			cmp al,6
+ 0000008C  74 37			je CentripetalCalling
+ 0000008E  3C 07			cmp al,7
+ 00000090  74 3A			je LinearMomentumCalling
+ 00000092  3C 08			cmp al,8
+ 00000094  74 3D			je AngularVelocityCalling
+ 00000096  3C 09			cmp al,9
+ 00000098  74 40			je KineticCalling
+ 0000009A  3C 0A			cmp al,10
+ 0000009C  74 43			je FrequencyCalling
+ 0000009E  3C 0B			cmp al,11
+ 000000A0  74 46			je SpeedWaveCalling
+
+ 000000A2				NewtonLawCalling:
+ 000000A2  E8 000011E6				Call Newton_Law
+ 000000A7  EB 44				jmp Outside
+ 000000A9				CurrentCalling:
+ 000000A9  E8 000014CC				Call Current
+ 000000AE  EB 3D				jmp Outside
+ 000000B0				TorqueCalling:
+ 000000B0  E8 000015A7				Call Torque
+ 000000B5  EB 36				jmp Outside
+ 000000B7				VelocityCalling:
+ 000000B7  E8 00001666				Call Velocity
+ 000000BC  EB 2F				jmp Outside
+ 000000BE				DisplacementCalling:
+ 000000BE  E8 00001726				Call Distance
+ 000000C3  EB 28				jmp Outside
+ 000000C5				CentripetalCalling:
+ 000000C5  E8 000013C5				Call Centripetal_Acc
+ 000000CA  EB 21				jmp Outside
+ 000000CC				LinearMomentumCalling:
+ 000000CC  E8 000017C7				Call Linear_Momentum
+ 000000D1  EB 1A				jmp Outside
+ 000000D3				AngularVelocityCalling:
+ 000000D3  E8 00001870				Call Angular_Velocity
+ 000000D8  EB 13				jmp Outside
+ 000000DA				KineticCalling:
+ 000000DA  E8 00001280				Call Kinetic_Energy
+ 000000DF  EB 0C				jmp Outside
+ 000000E1				FrequencyCalling:
+ 000000E1  E8 00001915				Call Frequency
+ 000000E6  EB 05				jmp Outside
+ 000000E8				SpeedWaveCalling:
+ 000000E8  E8 000019C9				Call Wave_Speed
+
+
+ 000000ED				Outside:
+ 000000ED  C3					ret
+ 000000EE			Physics ENDP
+
+ 000000EE			PhysicsQuestions PROC
+ 000000EE				RegenerateNumber:
+ 000000EE  E8 00000000 E			Call Randomize
+ 000000F3  B8 0000000B				mov eax,11
+ 000000F8  E8 00000000 E			Call RandomRange
+ 000000FD  83 C0 01				add eax,1
+ 00000100  B9 00000005				mov ecx,5
+ 00000105  BE 00000000				mov esi,0
+ 0000010A  BF 00000000				mov edi,0
+ 0000010F					CheckRepetation:
+ 0000010F  8A 9E 000008DC R				mov bl,PhysicsQuestionCount[esi]
+ 00000115  3A C3					cmp al,bl
+ 00000117  74 D5					je RegenerateNumber
+ 00000119  46						inc esi
+ 0000011A  E2 F3					Loop CheckRepetation
+ 0000011C  A2 000008EA R			mov PhysicsQNumber,al
+ 00000121  0F B6 1D				movzx ebx,Count
+	   000008EC R
+ 00000128  88 83 000008DC R			mov PhysicsQuestionCount[ebx],al
+ 0000012E  FE 05 000008EC R			inc Count
+ 00000134  BB 00000000				mov ebx,0
+ 00000139  E8 FFFFFF33				Call Physics
+ 0000013E  C3					ret
+ 0000013F  C3			ret
+ 00000140			PhysicsQuestions ENDP
+
+ 00000140			PhysicsQuestionGenerator PROC
+ 00000140  E8 00000000 E		Call Crlf
+ 00000145  E8 00000000 E		Call Crlf
+ 0000014A  BA 0000073C R		mov edx,offset WelcomePhysics
+ 0000014F  E8 00000000 E		Call WriteString
+ 00000154  E8 00000000 E		Call Crlf
+ 00000159  E8 00000000 E		Call Crlf
+ 0000015E  BA 00000000			mov edx,0
+ 00000163  B9 00000005			mov ecx,5
+ 00000168				PROCCalling:
+ 00000168  51					push ecx
+ 00000169  E8 FFFFFF80				Call PhysicsQuestions
+ 0000016E  59					pop ecx
+ 0000016F  E2 F7				Loop PROCCalling
+
+ 00000171  C6 05 000008EC R		mov Count,0
+	   00
+ 00000178  E8 00000000 E		Call ClrScr
+ 0000017D  C3				ret
+ 0000017E			PhysicsQuestionGenerator ENDP
+
+ 0000017E			Maths PROC
+
+ 0000017E  A0 000008EB R		mov al,MathsQNumber
+ 00000183  3C 01			cmp al,1
+ 00000185  74 20			je CubeCalling
+ 00000187  3C 02			cmp al,2
+ 00000189  74 23			je SquareCalling
+ 0000018B  3C 03			cmp al,3
+ 0000018D  74 26			je GeometricCalling
+ 0000018F  3C 04			cmp al,4
+ 00000191  74 29			je ArithmeticCalling
+ 00000193  3C 05			cmp al,5
+ 00000195  74 2C			je PalindromicCalling
+ 00000197  3C 06			cmp al,6
+ 00000199  74 2F			je PentagonalCalling
+ 0000019B  3C 07			cmp al,7
+ 0000019D  74 32			je SquareFreeCalling
+					;cmp al,8
+					;je CompositeCalling
+ 0000019F  3C 09			cmp al,9
+ 000001A1  74 35			je RelativeCalling
+ 000001A3  3C 0A			cmp al,10
+ 000001A5  74 38			je TriangleCalling
+
+ 000001A7				CubeCalling:
+ 000001A7  E8 00000A45				Call cubenum
+ 000001AC  EB 36				jmp Outside
+ 000001AE				SquareCalling:
+ 000001AE  E8 00000ACC				Call sqnum
+ 000001B3  EB 2F				jmp Outside
+ 000001B5				GeometricCalling:
+ 000001B5  E8 00000937				Call GeometricSeries
+ 000001BA  EB 28				jmp Outside
+ 000001BC				ArithmeticCalling:
+ 000001BC  E8 000004FD				Call ArithmeticSeries
+ 000001C1  EB 21				jmp Outside
+ 000001C3				PalindromicCalling:
+ 000001C3  E8 000003F9				Call Palindromic_Number
+ 000001C8  EB 1A				jmp Outside
+ 000001CA				PentagonalCalling:
+ 000001CA  E8 00000B36				Call pentagonalnum
+ 000001CF  EB 13				jmp Outside
+ 000001D1				SquareFreeCalling:
+ 000001D1  E8 00000820				Call isquarefree
+ 000001D6  EB 0C				jmp Outside
+					;CompositeCalling:
+					;	Call compositenum
+					;	jmp Outside		
+ 000001D8				RelativeCalling:
+ 000001D8  E8 0000074E				Call relativelyprime
+ 000001DD  EB 05				jmp Outside
+ 000001DF				TriangleCalling:
+ 000001DF  E8 00000612				Call TriangleNum
+ 000001E4				Outside:
+ 000001E4  C3					ret
+ 000001E5			Maths ENDP
+
+ 000001E5			MathsQuestions PROC
+ 000001E5				RegenerateNumber:
+ 000001E5  E8 00000000 E			Call Randomize
+ 000001EA  B8 0000000B				mov eax,11
+ 000001EF  E8 00000000 E			Call RandomRange
+ 000001F4  83 C0 01				add eax,1
+ 000001F7  B9 00000005				mov ecx,5
+ 000001FC  BE 00000000				mov esi,0
+ 00000201  BF 00000000				mov edi,0
+ 00000206					CheckRepetation:
+ 00000206  8A 9E 000008E4 R				mov bl,MathsQuestionCount[esi]
+ 0000020C  3A C3					cmp al,bl
+ 0000020E  74 D5					je RegenerateNumber
+ 00000210  46						inc esi
+ 00000211  E2 F3					Loop CheckRepetation
+ 00000213  A2 000008EB R			mov MathsQNumber,al
+ 00000218  0F B6 1D				movzx ebx,Count
+	   000008EC R
+ 0000021F  88 83 000008E4 R			mov MathsQuestionCount[ebx],al
+ 00000225  FE 05 000008EC R			inc Count
+ 0000022B  BB 00000000				mov ebx,0
+ 00000230  E8 FFFFFF49				Call Maths
+ 00000235  C3					ret
+ 00000236  C3			ret
+ 00000237			MathsQuestions ENDP
+
+ 00000237			MathsQuestionGenerator PROC
+ 00000237  E8 00000000 E		Call Crlf
+ 0000023C  E8 00000000 E		Call Crlf
+ 00000241  BA 000006E5 R		mov edx,offset WelcomeMaths
+ 00000246  E8 00000000 E		Call WriteString
+ 0000024B  E8 00000000 E		Call Crlf
+ 00000250  E8 00000000 E		Call Crlf
+ 00000255  B9 00000005			mov ecx,5
+ 0000025A				PROCCalling:
+ 0000025A  51					push ecx
+ 0000025B  E8 FFFFFF85				Call MathsQuestions
+ 00000260  59					pop ecx
+ 00000261  E2 F7				Loop PROCCalling
+
+ 00000263  C6 05 000008EC R		mov Count,0
+	   00
+
+ 0000026A  E8 00000000 E		Call ClrScr
+ 0000026F  C3				ret
+ 00000270			MathsQuestionGenerator ENDP
+
+ 00000270			Statistics PROC
+ 00000270  A0 000008E9 R		mov al,StatisticsQNumber
+ 00000275  3C 01			cmp al,1
+ 00000277  74 10			 je MeanCalling
+ 00000279  3C 02			cmp al,2
+ 0000027B  74 13			 je MedianCalling
+ 0000027D  3C 03			cmp al,3
+ 0000027F  74 16			 je ModeCalling
+ 00000281  3C 04			cmp al,4
+ 00000283  74 19			 je InterpolationCalling
+ 00000285  3C 05			cmp al,5
+ 00000287  74 1C			 je ValueSummationCalling
+
+ 00000289				MeanCalling:
+ 00000289  E8 00000E3B				Call MeanQuestion
+ 0000028E  EB 1A				jmp Outside
+ 00000290				MedianCalling:
+ 00000290  E8 00000D22				Call MedianQuestion
+ 00000295  EB 13				jmp Outside
+ 00000297				ModeCalling:
+ 00000297  E8 00000B09				Call Mode
+ 0000029C  EB 0C				jmp Outside
+ 0000029E				InterpolationCalling:
+ 0000029E  E8 00000C2D				Call Slope
+ 000002A3  EB 05				jmp Outside
+ 000002A5				ValueSummationCalling:
+ 000002A5  E8 00000F09				Call ValueSummation
+ 000002AA				Outside:	
+ 000002AA  C3					ret
+ 000002AB			Statistics ENDP
+
+ 000002AB			StatisticsQuestion PROC
+ 000002AB				RegenerateNumber:
+ 000002AB  E8 00000000 E			Call Randomize
+ 000002B0  B8 00000005				mov eax,5
+ 000002B5  E8 00000000 E			Call RandomRange
+ 000002BA  83 C0 01				add eax,1
+ 000002BD  B9 00000003				mov ecx,3
+ 000002C2  BE 00000000				mov esi,0
+ 000002C7  BF 00000000				mov edi,0
+ 000002CC					CheckRepetation:
+ 000002CC  8A 9E 000008E1 R				mov bl,StatisticsQuestionCount[esi]
+ 000002D2  3A C3					cmp al,bl
+ 000002D4  74 D5					je RegenerateNumber
+ 000002D6  46						inc esi
+ 000002D7  E2 F3					Loop CheckRepetation
+ 000002D9  A2 000008E9 R			mov StatisticsQNumber,al
+ 000002DE  0F B6 1D				movzx ebx,Count
+	   000008EC R
+ 000002E5  88 83 000008E1 R			mov StatisticsQuestionCount[ebx],al
+ 000002EB  FE 05 000008EC R			inc Count
+ 000002F1  BB 00000000				mov ebx,0
+ 000002F6  E8 FFFFFF75				Call Statistics
+ 000002FB  C3					ret
+ 000002FC			StatisticsQuestion ENDP
+
+ 000002FC			StatsQuestionGenerator PROC
+ 000002FC  E8 00000000 E		Call Crlf
+ 00000301  E8 00000000 E		Call Crlf
+ 00000306  BA 00000790 R		mov edx,offset WelcomeStats
+ 0000030B  E8 00000000 E		Call WriteString
+ 00000310  E8 00000000 E		Call Crlf
+ 00000315  E8 00000000 E		Call Crlf
+ 0000031A  B9 00000003			mov ecx,3
+ 0000031F				PROCCalling:
+ 0000031F  51					push ecx
+ 00000320  E8 FFFFFF86				Call StatisticsQuestion
+ 00000325  59					pop ecx
+ 00000326  E2 F7				Loop PROCCalling
+
+ 00000328  C6 05 000008EC R		mov Count,0
+	   00
+
+ 0000032F  E8 00000000 E		Call ClrScr
+ 00000334  C3				ret
+ 00000335			StatsQuestionGenerator ENDP
+ 00000335			WriteAnsTrue PROC
+ 00000335  E8 00000000 E			Call Crlf
+ 0000033A  BA 00000644 R			mov edx,offset Options1
+ 0000033F  E8 00000000 E			Call WriteString
+ 00000344  BA 00000000				mov edx,0
+ 00000349  BA 0000065C R			mov edx,offset TrueMsg;
+ 0000034E  E8 00000000 E			Call WriteString
+ 00000353  E8 00000000 E			Call Crlf
+ 00000358  BA 0000064A R			mov edx,offset Options2
+ 0000035D  E8 00000000 E			Call WriteString
+ 00000362  BA 00000661 R			mov edx,offset FalseMsg
+ 00000367  E8 00000000 E			Call WriteString
+ 0000036C  E8 00000000 E			Call Crlf
+ 00000371  B8 00000000				mov eax,0
+ 00000376  BA 00000696 R			mov edx,offset AnswerMsg1
+ 0000037B  E8 00000000 E			Call WriteString
+ 00000380  E8 00000000 E			Call ReadChar
+ 00000385  3C 74				cmp al,116
+ 00000387  74 06				je ChangeAscii
+ 00000389  3C 66				cmp al,102
+ 0000038B  74 02				je ChangeAscii
+ 0000038D  EB 02				jmp Display
+ 0000038F					ChangeAscii:
+ 0000038F  2C 20					sub al,32
+						
+ 00000391				Display:
+ 00000391  E8 00000000 E			Call WriteChar
+ 00000396  E8 00000000 E			Call Crlf
+ 0000039B  0F B7 1D				movzx ebx,CorrectAnswer
+	   00000637 R
+ 000003A2  3A C3				cmp al,bl
+ 000003A4  74 02				je CorrectLabel
+ 000003A6  75 2D				jne FalseLabel
+ 000003A8					CorrectLabel:
+ 000003A8  E8 00000000 E				Call Crlf
+ 000003AD  FE 05 0000063F R				inc Total_Score
+ 000003B3  BA 000006CF R				mov edx,offset TotalScoreMsg
+ 000003B8  E8 00000000 E				Call WriteString
+ 000003BD  0F B6 05					movzx eax,Total_Score
+	   0000063F R
+ 000003C4  E8 00000000 E				Call WriteDec
+ 000003C9  B8 00000000					mov eax,0
+ 000003CE  E8 00000000 E				Call Crlf
+ 000003D3  EB 25					jmp Term
+ 000003D5					FalseLabel:
+ 000003D5  E8 00000000 E				Call Crlf
+ 000003DA  BA 000006CF R				mov edx,offset TotalScoreMsg
+ 000003DF  E8 00000000 E				Call WriteString
+ 000003E4  0F B6 05					movzx eax,Total_Score
+	   0000063F R
+ 000003EB  E8 00000000 E				Call WriteDec
+ 000003F0  B8 00000000					mov eax,0
+ 000003F5  E8 00000000 E				Call Crlf
+ 000003FA  C3			Term: ret
+ 000003FB			WriteAnsTrue ENDP
+
+ 000003FB			writeans PROC
+						;;random postion for right answer
+ 000003FB  B8 00000000				mov eax,0
+ 00000400  B9 00000000				mov ecx,0
+ 00000405  BA 00000000				mov edx,0
+ 0000040A  BB 00000000				mov ebx,0
+ 0000040F  E8 00000000 E				call randomize
+ 00000414  B8 00000004					mov eax,4
+ 00000419  E8 00000000 E				call randomrange
+ 0000041E  8B F0					mov esi,eax
+ 00000420  66| C7 86					mov print1[esi],1  ;added one to position where is right answer
+	   000008D4 R
+	   0001
+
+								;;NOW TO PRINT WRITE AND WRONG ANS
+ 00000429  BE 00000000					mov esi,0
+ 0000042E  BF 00000000					mov edi,0
+ 00000433  B9 00000004					mov ecx,4
+							 ;;loop to print ans
+ 00000438					printans:
+ 00000438  BB 00000000					mov ebx,0
+ 0000043D  66| 8B 9E					mov bx,print1[esi]
+	   000008D4 R
+ 00000444  66| 83 FB 01					cmp bx,1
+ 00000448  0F 84 000000B8				je rightans
+ 0000044E  EB 08					jmp wrongans
+ 00000450  46						l1:inc esi
+ 00000451  E2 E5					loop printans
+ 00000453  E9 00000152					jmp end2
+
+							;;THIS IS WHERE WRONG ANSWERS ARE PRINTED
+ 00000458						wrongans:
+ 00000458  83 FE 00					cmp esi,0
+ 0000045B  74 0F						je optiona1
+ 0000045D  83 FE 01						cmp esi,1
+ 00000460  74 2F						je optionb1
+ 00000462  83 FE 02						cmp esi,2
+ 00000465  74 4F						je optionc1
+ 00000467  83 FE 03						cmp esi,3
+ 0000046A  74 72						je optiond1
+ 0000046C							Optiona1:
+ 0000046C  BA 00000644 R						mov edx,offset options1
+ 00000471  E8 00000000 E						call writestring
+ 00000476  B8 00000000							mov eax,0
+ 0000047B  66| 8B 87							mov ax,otheroptions[edi]
+	   00000639 R
+ 00000482  83 C7 02							add edi,type OtherOptions
+ 00000485  E8 00000000 E						call writedec
+ 0000048A  E8 00000000 E						call crlf
+ 0000048F  EB BF							jmp l1
+ 00000491							Optionb1:
+ 00000491  BA 0000064A R						mov edx,offset options2
+ 00000496  E8 00000000 E						call writestring
+ 0000049B  B8 00000000							mov eax,0
+ 000004A0  66| 8B 87							mov ax,otheroptions[edi]
+	   00000639 R
+ 000004A7  83 C7 02							add edi,type OtherOptions
+ 000004AA  E8 00000000 E						call writedec
+ 000004AF  E8 00000000 E						call crlf
+ 000004B4  EB 9A							jmp l1
+ 000004B6							Optionc1:
+ 000004B6  BA 00000650 R						mov edx,offset options3
+ 000004BB  E8 00000000 E						call writestring
+ 000004C0  B8 00000000							mov eax,0
+ 000004C5  66| 8B 87							mov ax,otheroptions[edi]
+	   00000639 R
+ 000004CC  83 C7 02							add edi,type OtherOptions
+ 000004CF  E8 00000000 E						call writedec
+ 000004D4  E8 00000000 E						call crlf
+ 000004D9  E9 FFFFFF72							jmp l1
+ 000004DE							Optiond1:
+ 000004DE  BA 00000656 R						mov edx,offset options4
+ 000004E3  E8 00000000 E						call writestring
+ 000004E8  B8 00000000							mov eax,0
+ 000004ED  66| 8B 87							mov ax,otheroptions[edi]
+	   00000639 R
+ 000004F4  83 C7 02							add edi,type OtherOptions
+ 000004F7  E8 00000000 E						call writedec
+ 000004FC  E8 00000000 E						call crlf
+ 00000501  E9 FFFFFF4A							jmp l1
+
+
+									;; THIS IS WHERE RIGHT ANSWER IS PRINTED
+ 00000506						rightans:
+ 00000506  83 FE 00						cmp esi,0
+ 00000509  74 0F						je optiona
+ 0000050B  83 FE 01						cmp esi,1
+ 0000050E  74 2E						je optionb
+ 00000510  83 FE 02						cmp esi,2
+ 00000513  74 4D						je optionc
+ 00000515  83 FE 03						cmp esi,3
+ 00000518  74 6C						je optiond
+ 0000051A							Optiona:
+ 0000051A  BA 00000644 R						mov edx,offset options1
+ 0000051F  E8 00000000 E						call writestring
+ 00000524  B8 00000000							mov eax,0
+ 00000529  66| A1							mov ax,CorrectAnswer
+	   00000637 R
+ 0000052F  E8 00000000 E						call writedec
+ 00000534  E8 00000000 E						call crlf
+ 00000539  E9 FFFFFF12							jmp l1
+ 0000053E							Optionb:
+ 0000053E  BA 0000064A R						mov edx,offset options2
+ 00000543  E8 00000000 E						call writestring
+ 00000548  B8 00000000							mov eax,0
+ 0000054D  66| A1							mov ax,CorrectAnswer
+	   00000637 R
+ 00000553  E8 00000000 E						call writedec
+ 00000558  E8 00000000 E						call crlf
+ 0000055D  E9 FFFFFEEE							jmp l1
+ 00000562							Optionc:
+ 00000562  BA 00000650 R						mov edx,offset options3
+ 00000567  E8 00000000 E						call writestring
+ 0000056C  B8 00000000							mov eax,0
+ 00000571  66| A1							mov ax,CorrectAnswer
+	   00000637 R
+ 00000577  E8 00000000 E						call writedec
+ 0000057C  E8 00000000 E						call crlf
+ 00000581  E9 FFFFFECA							jmp l1
+ 00000586							Optiond:
+ 00000586  BA 00000656 R						mov edx,offset options4
+ 0000058B  E8 00000000 E						call writestring
+ 00000590  B8 00000000							mov eax,0
+ 00000595  66| A1							mov ax,CorrectAnswer
+	   00000637 R
+ 0000059B  E8 00000000 E						call writedec
+ 000005A0  E8 00000000 E						call crlf
+ 000005A5  E9 FFFFFEA6							jmp l1
+ 000005AA						end2:
+ 000005AA  BE 00000000					mov esi,0
+ 000005AF  B9 00000004					mov ecx,4
+ 000005B4						nullprint1:
+ 000005B4  66| C7 86						mov print1[esi],0
+	   000008D4 R
+	   0000
+ 000005BD  46							inc esi
+ 000005BE  E2 F4						loop nullprint1
+ 000005C0  C3			ret
+ 000005C1			writeans ENDP
+
+ 000005C1			Palindromic_Number PROC
+ 000005C1  BA 000004C0 R		mov edx,offset Mmsg2
+ 000005C6  E8 00000000 E		Call WriteString
+ 000005CB  E8 00000000 E		Call Randomize
+ 000005D0  B8 000000F4			mov eax,244
+ 000005D5  E8 00000000 E		Call RandomRange
+ 000005DA  83 C0 0A			add eax,10
+					;Call DumpRegs
+ 000005DD  A2 00000460 R		mov PalindromicNumber,al
+ 000005E2  E8 00000000 E		Call WriteDec
+ 000005E7  E8 00000000 E		Call Crlf
+ 000005EC  3C 63			cmp al,99
+ 000005EE  77 02			ja ThreeDigit
+ 000005F0  76 63			jbe TwoDigit
+ 000005F2				ThreeDigit:
+ 000005F2  BB 00000000				mov ebx,0
+ 000005F7  B9 00000000				mov ecx,0
+ 000005FC  BA 00000000				mov edx,0
+ 00000601  66| 0F B6 C0				movzx ax,al
+ 00000605  F6 35 00000351 R			div divTerm
+ 0000060B  8A DC				mov bl,ah		;; remainder
+ 0000060D  8A C8				mov cl,al		;; quotient
+ 0000060F  B8 00000000				mov eax,0
+ 00000614  8A C3				mov al,bl
+ 00000616  F6 25 00000463 R			mul mulTerm2
+ 0000061C  00 05 00000461 R			add PalindromicNumberReverse,al		;; number after multiplying by 100
+ 00000622  BB 00000000				mov ebx,0
+ 00000627  66| 0F B6 C1				movzx ax,cl
+ 0000062B  B9 00000000				mov ecx,0
+ 00000630  F6 35 00000351 R			div divTerm
+ 00000636  8A DC				mov bl,ah
+ 00000638  8A C8				mov cl,al
+ 0000063A  B8 00000000				mov eax,0
+ 0000063F  8A C3				mov al,bl
+ 00000641  F6 25 00000462 R			mul mulTerm1
+ 00000647  00 05 00000461 R			add PalindromicNumberReverse,al
+ 0000064D  00 0D 00000461 R			add PalindromicNumberReverse,cl
+ 00000653  EB 36				jmp Comparison
+ 00000655				TwoDigit:
+ 00000655  BB 00000000				mov ebx,0
+ 0000065A  B9 00000000				mov ecx,0
+ 0000065F  BA 00000000				mov edx,0
+ 00000664  66| 0F B6 C0				movzx ax,al
+ 00000668  F6 35 00000351 R			div divTerm
+ 0000066E  8A DC				mov bl,ah
+ 00000670  8A C8				mov cl,al
+ 00000672  B8 00000000				mov eax,0
+ 00000677  8A C3				mov al,bl
+ 00000679  F6 25 00000462 R			mul mulTerm1
+ 0000067F  00 05 00000461 R			Add PalindromicNumberReverse,al
+ 00000685  00 0D 00000461 R			add PalindromicNumberReverse,cl
+ 0000068B				Comparison:
+ 0000068B  A0 00000460 R			mov al,PalindromicNumber
+ 00000690  8A 1D 00000461 R			mov bl,PalindromicNumberReverse
+ 00000696  3A C3				cmp al,bl
+ 00000698  74 10				jz Palindrome
+ 0000069A  66| C7 05				mov CorrectAnswer,"F"
+	   00000637 R
+	   0046
+ 000006A3  E8 00000000 E			Call Crlf
+ 000006A8  EB 0E				jmp Term
+ 000006AA					Palindrome:
+ 000006AA  66| C7 05					mov CorrectAnswer,"T"
+	   00000637 R
+	   0054
+ 000006B3  E8 00000000 E				Call Crlf
+
+ 000006B8  E8 FFFFFC78		Term : Call WriteAnsTrue
+ 000006BD  C3			ret
+ 000006BE			Palindromic_Number ENDP
+
+ 000006BE			ArithmeticSeries PROC
+ 000006BE  BA 0000048D R		mov edx,offset Mmsg1
+ 000006C3  E8 00000000 E		Call WriteString
+ 000006C8  E8 00000000 E		Call Randomize
+ 000006CD  B8 0000000A			mov eax,10
+ 000006D2  E8 00000000 E		Call RandomRange
+ 000006D7  83 C0 01			add eax,1
+ 000006DA  3C 01			cmp al,1
+ 000006DC  74 0C			je AddFive
+ 000006DE  A2 00000474 R		mov First_Term,al
+ 000006E3  A2 00000465 R		mov Series[0],al
+ 000006E8  EB 0D			jmp GenerateCommonDifference
+ 000006EA				AddFive:
+ 000006EA  83 C0 05				add eax,5
+ 000006ED  A2 00000474 R			mov First_Term,al
+ 000006F2  A2 00000465 R			mov Series[0],al
+ 000006F7				GenerateCommonDifference:
+ 000006F7  E8 00000000 E			Call Randomize
+ 000006FC  B8 00000008				mov eax,8
+ 00000701  E8 00000000 E			Call RandomRange
+ 00000706  83 C0 01				add eax,1
+ 00000709  3C 01				cmp al,1
+ 0000070B  74 07				je AddFour
+ 0000070D  A2 00000475 R			mov Common_Diff,al
+ 00000712  EB 08				jmp CalculateAnswer
+ 00000714					AddFour:
+ 00000714  83 C0 04					add eax,4
+ 00000717  A2 00000475 R				mov Common_Diff,al
+							
+ 0000071C				CalculateAnswer:
+ 0000071C  BE 00000000				mov esi,0
+ 00000721  B9 0000000E				mov ecx,14
+ 00000726					FormSeries:
+ 00000726  A0 00000474 R				mov al,First_Term
+ 0000072B  02 05 00000475 R				add al,Common_Diff
+ 00000731  88 86 00000466 R				mov Series[esi+1],al
+ 00000737  46						inc esi
+ 00000738  A2 00000474 R				mov First_Term,al
+ 0000073D  E2 E7					Loop FormSeries
+
+ 0000073F  E8 00000000 E			Call Randomize
+ 00000744  B8 0000000F				mov eax,15
+ 00000749  E8 00000000 E			Call RandomRange
+ 0000074E  83 C0 01				add eax,1
+ 00000751  3C 03				cmp al,3
+ 00000753  72 2C				jb AddSix
+ 00000755					SeriesPrintLabel:
+ 00000755  8B C8					mov ecx,eax
+ 00000757  BE 00000000					mov esi,0
+ 0000075C  BA 0000044E R				mov edx,offset msg1
+ 00000761						PrintSeries:
+ 00000761  0F B6 86						movzx eax,Series[esi]
+	   00000465 R
+ 00000768  E8 00000000 E					Call WriteDec
+ 0000076D  E8 00000000 E					Call WriteString
+ 00000772  46							inc esi
+ 00000773  E2 EC						Loop PrintSeries
+ 00000775  BA 00000450 R			mov edx,offset msg2
+ 0000077A  E8 00000000 E			Call WriteString
+ 0000077F  EB 05				jmp CorrectAnswerLabel
+ 00000781					AddSix:
+ 00000781  83 C0 06					add eax,6
+ 00000784  EB CF					jmp SeriesPrintLabel
+
+ 00000786					CorrectAnswerLabel:
+ 00000786  E8 00000000 E				Call Crlf
+ 0000078B  66| 0F B6 86					movzx ax,Series[esi]
+	   00000465 R
+ 00000793  66| A3					mov CorrectAnswer,ax
+	   00000637 R
+ 00000799  B8 00000000			mov eax,0
+ 0000079E  BE 00000000			mov esi,0
+ 000007A3  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 000007AA  02 05 00000475 R				add al,Common_Diff
+ 000007B0  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 000007B7  83 C6 02					add esi,type OtherOptions
+ 000007BA  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 000007C1  66| 83 C0 01					add ax,1
+ 000007C5  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 000007CC  83 C6 02					add esi,type OtherOptions
+ 000007CF  66| A1					mov ax,CorrectAnswer
+	   00000637 R
+ 000007D5  02 05 00000475 R				add al,Common_Diff
+ 000007DB  02 05 00000475 R				add al,Common_Diff
+ 000007E1  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 000007E8  83 C6 02					add esi,type OtherOptions
+ 000007EB  E8 FFFFFC0B					call writeans
+ 000007F0  E8 FFFFF80B					Call Score
+
+ 000007F5  C3			ret
+ 000007F6			ArithmeticSeries ENDP
+
+ 000007F6			TriangleNum proc
+ 000007F6  BA 000004F5 R		mov edx,offset Mmsg3
+ 000007FB  E8 00000000 E		Call WriteString
+ 00000800  B8 00000000			mov eax,0
+ 00000805  E8 00000000 E		call randomize
+ 0000080A  B8 0000000A			mov eax,10
+ 0000080F  E8 00000000 E		call randomrange
+ 00000814  83 C0 01			add eax,1
+ 00000817  E8 00000000 E		Call WriteDec
+ 0000081C  BA 00000000			mov edx,0
+ 00000821  8A D8			mov bl,al
+ 00000823  83 C0 01			add eax,1
+ 00000826  F6 E3			mul bl
+ 00000828  F6 35 0000045F R		div valMultiplier
+ 0000082E  66| 0F B6 D0			movzx dx,al
+ 00000832  66| 89 15			mov CorrectAnswer,dx
+	   00000637 R
+ 00000839  E8 00000000 E		Call Crlf
+ 0000083E  BE 00000000			mov esi,0
+ 00000843  B8 00000000			mov eax,0
+ 00000848				FillOther:
+ 00000848  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 0000084F  66| 83 C0 02					add ax,2
+ 00000853  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 0000085A  83 C6 02					add esi,type OtherOptions
+ 0000085D  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00000864  66| 83 E8 01					sub ax,1
+ 00000868  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 0000086F  83 C6 02					add esi,type OtherOptions
+ 00000872  66| A1					mov ax,CorrectAnswer
+	   00000637 R
+ 00000878  66| 83 C0 04					add ax,4
+ 0000087C  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00000883  83 C6 02					add esi,type OtherOptions
+ 00000886  E8 FFFFFB70				Call WriteAns
+ 0000088B  E8 FFFFF770				Call Score
+ 00000890  C3					ret
+ 00000891			trianglenum endp
+
+ 00000891			Compositenum proc
+ 00000891					l1:
+ 00000891  BA 0000051C R		mov edx,offset Mmsg4
+ 00000896  E8 00000000 E		Call WriteString
+ 0000089B  B8 00000000			mov eax,0
+ 000008A0  E8 00000000 E		call randomize
+ 000008A5  B8 000000FF			mov eax,255
+ 000008AA  E8 00000000 E		call randomrange
+ 000008AF  04 01			add al,1
+ 000008B1  3C 01			cmp al,1
+ 000008B3  74 DC			jz l1
+ 000008B5  EB 00			jmp l2
+ 000008B7				l2:
+ 000008B7  3C 02			 cmp al,2
+ 000008B9  74 D6			 jz l1
+ 000008BB  EB 00			 jmp l3
+ 000008BD				 l3:
+ 000008BD  3C 03			 cmp al,3
+ 000008BF  74 D0			 jz l1
+ 000008C1  EB 00			 jmp l4
+ 000008C3				 l4:
+ 000008C3  A2 00000487 R		 mov temp,al
+ 000008C8  F6 35 0000045F R		 div valMultiplier
+ 000008CE  0F B6 C8			 movzx ecx,al;;loop half of original number
+ 000008D1  B8 00000000			 mov eax,0
+ 000008D6  BA 00000000			 mov edx,0
+ 000008DB  8B D1			 mov edx,ecx
+ 000008DD  0F B6 05			 movzx eax,temp;;to restore original value
+	   00000487 R
+ 000008E4				 l5:
+ 000008E4  F6 F1			  div cl
+ 000008E6  80 FC 00			  cmp ah,0
+ 000008E9  74 25			  je equal
+ 000008EB  0F B6 05			  movzx eax,temp
+	   00000487 R
+ 000008F2  E2 F0			 loop l5
+ 000008F4				 notequal:
+ 000008F4  0F B6 05			 movzx eax,temp
+	   00000487 R
+ 000008FB  E8 00000000 E		 call writedec
+ 00000900  66| C7 05			 mov CorrectAnswer,"F"
+	   00000637 R
+	   0046
+ 00000909  E8 00000000 E		 call crlf
+ 0000090E  EB 15			 jmp term
+ 00000910				 equal:
+ 00000910  0F B6 05			 movzx eax,temp
+	   00000487 R
+ 00000917  E8 00000000 E		 call writedec
+ 0000091C  66| C7 05			 mov CorrectAnswer,"T"
+	   00000637 R
+	   0054
+ 00000925				 term:
+ 00000925  E8 FFFFFA0B			 call WriteAnsTrue	
+ 0000092A  C3				ret
+ 0000092B			Compositenum endp
+
+ 0000092B			Relativelyprime proc
+ 0000092B  BA 0000057A R		mov edx,offset Mmsg6
+ 00000930  E8 00000000 E		Call WriteString
+ 00000935  B8 00000000			mov eax,0
+ 0000093A  BA 00000000			mov edx,0
+ 0000093F  BB 00000000			mov ebx,0
+ 00000944  C6 05 00000487 R		mov temp,0
+	   00
+ 0000094B  E8 00000000 E		call randomize;;generating first value
+ 00000950  B8 0000000E			mov eax,14
+ 00000955  E8 00000000 E		call randomrange
+ 0000095A  83 C0 01			add eax,1
+ 0000095D  A2 00000488 R		mov firstnumber,al
+ 00000962  E8 00000000 E		Call WriteDec
+ 00000967  BA 0000044C R		mov edx,offset msg
+ 0000096C  E8 00000000 E		Call WriteString
+ 00000971  8B D0			mov edx,eax
+ 00000973  B8 00000000			mov eax,0
+ 00000978  B8 0000000E			mov eax,14
+ 0000097D  E8 00000000 E		call randomrange
+ 00000982  83 C0 01			add eax,1
+ 00000985  A2 00000489 R		mov secondnumber,al
+ 0000098A  E8 00000000 E		Call WriteDec
+ 0000098F  8B D8			mov ebx,eax
+ 00000991  38 1D 00000488 R		cmp firstnumber,bl
+ 00000997  7F 02			jg firstnum
+ 00000999  7C 15			jL secondnum
+ 0000099B				firstnum:
+ 0000099B  8B C2			mov eax,edx
+ 0000099D  88 1D 00000487 R		mov temp,bl
+ 000009A3  F6 35 00000487 R		div temp
+ 000009A9  80 FC 00			cmp ah,0
+ 000009AC  EB 2D			jmp notgcd
+ 000009AE  EB 15			jmp gcd
+ 000009B0				secondnum:
+ 000009B0  8B C3			mov eax,ebx
+ 000009B2  88 15 00000487 R		mov temp,dl
+ 000009B8  F6 35 00000487 R		div temp
+ 000009BE  80 FC 00			cmp ah,0
+ 000009C1  EB 18			jmp notgcd
+ 000009C3  EB 00			jmp gcd
+ 000009C5				gcd:
+ 000009C5  0F B6 05			movzx eax,firstnumber
+	   00000488 R
+					;call writedec
+					;call crlf
+ 000009CC  66| C7 05			mov CorrectAnswer,"T"
+	   00000637 R
+	   0054
+ 000009D5  E8 FFFFF95B			call WriteAnsTrue	
+ 000009DA  C3				ret
+ 000009DB				notgcd:
+ 000009DB  0F B6 05			movzx eax,firstnumber
+	   00000488 R
+					;call writedec
+ 000009E2  E8 00000000 E		call crlf
+ 000009E7  66| C7 05			mov CorrectAnswer,"F"
+	   00000637 R
+	   0046
+ 000009F0  E8 FFFFF940			call WriteAnsTrue	
+ 000009F5  C3				ret
+ 000009F6			Relativelyprime endp
+
+ 000009F6			isquarefree proc
+ 000009F6  E8 00000000 E		call randomize
+ 000009FB  B8 000000FA			mov eax,250
+ 00000A00  E8 00000000 E		call randomrange
+ 00000A05  66| 83 C0 03			add ax,3
+ 00000A09  66| A3			mov valsquarefree,ax
+	   0000048A R
+ 00000A0F  BA 000005AF R		mov edx,offset Mmsg7
+ 00000A14  E8 00000000 E		call writestring
+ 00000A19  E8 00000000 E		call writedec
+
+ 00000A1E  66| A1			l1: mov ax,valsquarefree
+	   0000048A R
+ 00000A24  BB 00000000			mov ebx,0
+ 00000A29  8A 1D 0000045F R		mov bl,valMultiplier
+ 00000A2F  F6 F3			div bl
+ 00000A31  80 FC 00			cmp ah,0
+ 00000A34  75 20			jne againdividetwo
+ 00000A36  B8 00000000			mov eax,0
+ 00000A3B  BB 00000000			mov ebx,0
+ 00000A40  66| A1			mov ax,valsquarefree
+	   0000048A R
+ 00000A46  8A 1D 0000045F R		mov bl,valMultiplier
+ 00000A4C  F6 F3			div bl
+ 00000A4E  B4 00			mov ah,0
+ 00000A50  66| A3			mov valsquarefree,ax
+	   0000048A R
+
+ 00000A56				againdividetwo:
+ 00000A56  B8 00000000			mov eax,0
+ 00000A5B  66| A1			mov ax,valsquarefree
+	   0000048A R
+ 00000A61  BB 00000000			mov ebx,0
+ 00000A66  8A 1D 0000045F R		mov bl,valMultiplier
+ 00000A6C  F6 F3			div bl
+ 00000A6E  80 FC 00			cmp ah,0
+ 00000A71  75 0F			jne looping
+					;mov edx,offset false1
+ 00000A73  66| C7 05			mov CorrectAnswer,"F"
+	   00000637 R
+	   0046
+					;call writestring
+ 00000A7C  E8 FFFFF8B4			Call WriteAnsTrue 
+ 00000A81  C3				ret
+
+ 00000A82				looping:
+ 00000A82  B8 00000000			mov eax,0
+ 00000A87  BB 00000000			mov ebx,0
+ 00000A8C  B9 00000000			mov ecx,0
+ 00000A91  66| A1			mov ax,valsquarefree
+	   0000048A R
+ 00000A97  66| 83 E8 03			sub ax,3
+ 00000A9B  8B C8			mov ecx,eax
+ 00000A9D  B3 03			mov bl,3
+
+ 00000A9F				l2:
+ 00000A9F  B8 00000000			mov eax,0
+ 00000AA4  66| A1			mov ax,valsquarefree
+	   0000048A R
+ 00000AAA  F6 F3			div bl
+ 00000AAC  80 FC 00			cmp ah,0
+ 00000AAF  75 2C			jne l3
+ 00000AB1  66| A1			mov ax,valsquarefree
+	   0000048A R
+ 00000AB7  F6 F3			div bl
+ 00000AB9  B4 00			mov ah,0
+ 00000ABB  66| A3			mov valsquarefree,ax
+	   0000048A R
+ 00000AC1  66| A1			mov ax,valsquarefree
+	   0000048A R
+ 00000AC7  F6 F3			div bl
+ 00000AC9  80 FC 00			cmp ah,0
+ 00000ACC  75 0F			jne l3
+ 00000ACE  66| C7 05			mov CorrectAnswer,"F"
+	   00000637 R
+	   0046
+ 00000AD7  E8 FFFFF859			Call WriteAnsTrue
+ 00000ADC  C3				ret
+ 00000ADD				l3:
+ 00000ADD  80 C3 01			add bl,1
+ 00000AE0  E2 BD			loop l2
+ 00000AE2  66| C7 05			mov CorrectAnswer,"T"
+	   00000637 R
+	   0054
+ 00000AEB  E8 FFFFF845			Call WriteAnsTrue
+ 00000AF0  C3				ret
+ 00000AF1			isquarefree ENDP
+
+ 00000AF1			GeometricSeries PROC
+ 00000AF1  BA 0000048D R		mov edx,offset Mmsg1
+ 00000AF6  E8 00000000 E		Call WriteString
+ 00000AFB  E8 00000000 E		Call Randomize
+ 00000B00  B8 00000003			mov eax,3
+ 00000B05  83 C0 01			add eax,1
+ 00000B08  66| A3			mov GFirst_Term,ax
+	   00000476 R
+ 00000B0E  66| A3			mov GSeries[0],ax
+	   0000047A R
+					;Call WriteDec
+ 00000B14  E8 00000000 E		Call Randomize
+ 00000B19  B8 00000004			mov eax,4
+ 00000B1E  E8 00000000 E		Call RandomRange
+ 00000B23  83 C0 01			add eax,1
+ 00000B26  66| A3			mov GCommon_Diff,ax
+	   00000478 R
+					;Call Crlf
+					;Call WriteDec
+					;Call Crlf
+ 00000B2C  B9 00000005			mov ecx,5
+ 00000B31  BE 00000000			mov esi,0
+ 00000B36				CreateSeries:
+ 00000B36  BA 00000000				mov edx,0
+ 00000B3B  66| A1				mov ax,GFirst_Term
+	   00000476 R
+ 00000B41  66| F7 25				mul GCommon_Diff
+	   00000478 R
+ 00000B48  66| 89 86				mov GSeries[esi+2],ax
+	   0000047C R
+ 00000B4F  83 C6 02				add esi,2
+ 00000B52  66| A3				mov GFirst_Term,ax
+	   00000476 R
+ 00000B58  E2 DC				loop CreateSeries
+
+ 00000B5A  BA 0000044E R		mov edx,offset msg1
+ 00000B5F  B9 00000005			mov ecx,5
+ 00000B64  BE 00000000			mov esi,0
+ 00000B69				PrintSeries:
+ 00000B69  0F B7 86				movzx eax,GSeries[esi]
+	   0000047A R
+ 00000B70  E8 00000000 E			Call WriteDec
+ 00000B75  E8 00000000 E			Call WriteString
+ 00000B7A  83 C6 02				add esi,2
+ 00000B7D  E2 EA				Loop PrintSeries
+ 00000B7F  BA 00000450 R		mov edx,offset msg2
+ 00000B84  E8 00000000 E		Call WriteString
+ 00000B89  E8 00000000 E		Call Crlf
+ 00000B8E  66| 8B 86			mov ax,GSeries[esi]
+	   0000047A R
+ 00000B95  66| A3			mov CorrectAnswer,ax
+	   00000637 R
+
+ 00000B9B  B8 00000000			mov eax,0
+ 00000BA0  BE 00000000			mov esi,0
+ 00000BA5  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00000BAC  66| 83 C0 09					add ax,9
+ 00000BB0  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00000BB7  83 C6 02					add esi,type OtherOptions
+ 00000BBA  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00000BC1  66| 83 C0 02					add ax,2
+ 00000BC5  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00000BCC  83 C6 02					add esi,type OtherOptions
+ 00000BCF  66| A1					mov ax,CorrectAnswer
+	   00000637 R
+ 00000BD5  66| 03 05					add ax,GCommon_Diff
+	   00000478 R
+ 00000BDC  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00000BE3  83 C6 02					add esi,type OtherOptions
+ 00000BE6  E8 FFFFF810					call writeans
+ 00000BEB  E8 FFFFF410					Call Score
+ 00000BF0  C3			ret
+ 00000BF1			GeometricSeries ENDP
+
+ 00000BF1			cubenum proc
+ 00000BF1  BA 000005E4 R		mov edx,offset Mmsg8
+ 00000BF6  E8 00000000 E		Call WriteString
+ 00000BFB  B8 00000000			mov eax,0
+ 00000C00  BB 00000000			mov ebx,0
+ 00000C05  E8 00000000 E		call randomize
+ 00000C0A  B8 0000000A			mov eax,10
+ 00000C0F  E8 00000000 E		call randomrange
+ 00000C14  04 03			add al,3
+ 00000C16  E8 00000000 E		Call WriteDec
+ 00000C1B  E8 00000000 E		Call Crlf
+ 00000C20  8A D8			mov bl,al
+ 00000C22  F6 E0			mul al
+ 00000C24  F6 E3			mul bl
+ 00000C26  66| A3			mov CorrectAnswer,ax
+	   00000637 R
+					;call writedec
+ 00000C2C  BE 00000000			mov esi,0
+ 00000C31  B8 00000000			mov eax,0
+ 00000C36  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00000C3D  66| 83 C0 01					add ax,1
+ 00000C41  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00000C48  83 C6 02					add esi,type OtherOptions
+ 00000C4B  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00000C52  66| 83 E8 01					sub ax,1
+ 00000C56  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00000C5D  83 C6 02					add esi,type OtherOptions
+ 00000C60  66| A1					mov ax,CorrectAnswer
+	   00000637 R
+ 00000C66  66| 83 C0 05					add ax,5
+ 00000C6A  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00000C71  83 C6 02					add esi,type OtherOptions
+ 00000C74  E8 FFFFF782					Call writeans
+ 00000C79  E8 FFFFF382					Call Score
+ 00000C7E  C3				ret
+ 00000C7F			cubenum endp
+
+ 00000C7F			sqnum proc
+					
+ 00000C7F  BA 00000608 R		mov edx,offset Mmsg9
+ 00000C84  E8 00000000 E		Call WriteString
+ 00000C89  E8 00000000 E		call randomize
+ 00000C8E  B8 0000000E			mov eax,14
+ 00000C93  E8 00000000 E		call randomrange
+ 00000C98  83 C0 01			add eax,1
+					;;generating value for square
+ 00000C9B  A2 0000048C R		mov valsquare,al
+ 00000CA0  E8 00000000 E		Call WriteDec
+ 00000CA5  F6 E0			mul al
+ 00000CA7  66| A3			mov CorrectAnswer,ax
+	   00000637 R
+					;call writedec
+ 00000CAD  E8 00000000 E		Call Crlf
+ 00000CB2  BE 00000000			mov esi,0
+ 00000CB7  B8 00000000			mov eax,0
+ 00000CBC  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00000CC3  66| 83 C0 01					add ax,1
+ 00000CC7  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00000CCE  83 C6 02					add esi,type OtherOptions
+ 00000CD1  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00000CD8  66| 83 E8 01					sub ax,1
+ 00000CDC  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00000CE3  83 C6 02					add esi,type OtherOptions
+ 00000CE6  66| A1					mov ax,CorrectAnswer
+	   00000637 R
+ 00000CEC  66| 83 C0 05					add ax,5
+ 00000CF0  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00000CF7  83 C6 02					add esi,type OtherOptions
+ 00000CFA  E8 FFFFF6FC					Call writeans
+ 00000CFF  E8 FFFFF2FC					Call Score
+ 00000D04  C3				ret
+ 00000D05			sqnum endp
+
+ 00000D05			Pentagonalnum proc;;3n^2-n/2 (formula for pentagonal number)
+ 00000D05  BA 00000549 R		mov edx,offset Mmsg5 
+ 00000D0A  E8 00000000 E		Call WriteString
+ 00000D0F  BB 00000000			mov ebx,0
+ 00000D14  B8 00000000			mov eax,0
+ 00000D19  E8 00000000 E		call randomize ;;consider a pentagon of length l and is it(whatever in eax after applying formula)the correct pentagonal number
+ 00000D1E  B8 0000000E			mov eax,14
+ 00000D23  E8 00000000 E		call randomrange;;
+					;Call Crlf
+ 00000D28  04 01			add al,1
+ 00000D2A  E8 00000000 E		Call WriteDec
+ 00000D2F  E8 00000000 E		Call Crlf
+ 00000D34  66| 0F B6 D8			movzx bx,al
+ 00000D38  F6 E0			mul al
+ 00000D3A  F6 25 00000464 R		mul mulTerm3
+ 00000D40  66| 2B C3			sub ax,bx
+ 00000D43  F6 35 0000045F R		div valMultiplier
+ 00000D49  0F B6 C0			movzx eax,al
+ 00000D4C  66| A3			mov CorrectAnswer,ax
+	   00000637 R
+					;movzx eax,CorrectAnswer
+					;Call WriteDec
+
+ 00000D52  B8 00000000			mov eax,0
+ 00000D57  BE 00000000			mov esi,0
+ 00000D5C  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00000D63  66| 83 C0 02					add ax,2
+ 00000D67  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00000D6E  83 C6 02					add esi,type OtherOptions
+ 00000D71  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00000D78  66| 83 C0 03					add ax,3
+ 00000D7C  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00000D83  83 C6 02					add esi,type OtherOptions
+ 00000D86  66| A1					mov ax,CorrectAnswer
+	   00000637 R
+ 00000D8C  66| 83 C0 01					add ax,1
+ 00000D90  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00000D97  83 C6 02					add esi,type OtherOptions
+ 00000D9A  E8 FFFFF65C					call writeans
+ 00000D9F  E8 FFFFF25C					Call Score
+
+ 00000DA4  C3				ret
+ 00000DA5			Pentagonalnum endp
+
+ 00000DA5			Mode PROC
+ 00000DA5  BA 000003FF R		mov edx,offset Smsg4
+ 00000DAA  E8 00000000 E		Call WriteString
+ 00000DAF  BA 0000044C R		mov edx,offset msg
+ 00000DB4  B9 0000000F			mov ecx,15
+ 00000DB9  E8 00000000 E		Call Randomize
+ 00000DBE  BE 00000000			mov esi,0
+ 00000DC3				GenerateNumber:
+ 00000DC3  B8 00000064				mov eax,100
+ 00000DC8  E8 00000000 E			Call RandomRange
+ 00000DCD  F6 35 00000351 R			div divTerm
+ 00000DD3  80 FC 00				cmp ah,0
+ 00000DD6  74 08				je ChangeAH
+ 00000DD8  88 A6 00000338 R			mov ModeArr[esi],ah
+ 00000DDE  EB 09				jmp Loop_Label
+ 00000DE0					ChangeAH:
+ 00000DE0  80 C4 01					add ah,1
+ 00000DE3  88 A6 00000338 R				mov ModeArr[esi],ah
+ 00000DE9					Loop_Label: 
+ 00000DE9  0F B6 86					movzx eax,ModeArr[esi]
+	   00000338 R
+ 00000DF0  E8 00000000 E				Call WriteDec
+ 00000DF5  E8 00000000 E				Call WriteString
+ 00000DFA  46						inc esi
+ 00000DFB  E2 C6					loop GenerateNumber
+						
+ 00000DFD  E8 00000000 E			Call Crlf
+ 00000E02  B9 0000000F				mov ecx,15
+ 00000E07  BE 00000000				mov esi,0
+ 00000E0C					CalculateFrequency:
+ 00000E0C  0F B6 86					movzx eax,ModeArr[esi]
+	   00000338 R
+ 00000E13  0F B6 98					movzx ebx,FreqMode[eax]
+	   00000347 R
+ 00000E1A  43						inc ebx
+ 00000E1B  88 98 00000347 R				mov FreqMode[eax],bl
+							;Call DumpRegs
+ 00000E21  46						inc esi
+ 00000E22  E2 E8					Loop CalculateFrequency
+						
+						;mov eax,0
+						;mov ecx,10
+						;mov esi,0
+						;PrintFreq:
+					;		movzx eax,FreqMode[esi]
+					;		Call WriteDec
+					;		Call WriteString
+					;		inc esi
+					;		Loop PrintFreq
+ 00000E24  E8 00000000 E			Call Crlf
+ 00000E29  B9 00000009				mov ecx,9
+ 00000E2E  BE 00000000				mov esi,0
+ 00000E33  BB 00000000				mov ebx,0
+ 00000E38  BF 00000000				mov edi,0
+ 00000E3D  8A 86 00000347 R			mov al,FreqMode[esi]
+ 00000E43  A2 00000352 R			mov max,al
+ 00000E48  46					inc esi
+ 00000E49					FindMaximum:
+ 00000E49  8A 9E 00000347 R				mov bl,FreqMode[esi]
+ 00000E4F  3A 1D 00000352 R				cmp bl,max
+ 00000E55  76 0C					jbe loopagain
+ 00000E57  88 1D 00000352 R				mov max,bl
+ 00000E5D  89 35 00000353 R				mov index,esi
+ 00000E63						loopagain:
+ 00000E63  46						inc esi
+ 00000E64  E2 E3						loop  FindMaximum
+						;movzx eax,max
+						;Call WriteDec
+						;Call Crlf
+ 00000E66  A1 00000353 R			mov eax,index
+						;Call WriteDec
+ 00000E6B  66| A3				mov CorrectAnswer,ax
+	   00000637 R
+ 00000E71  0F B7 05				movzx eax,CorrectAnswer
+	   00000637 R
+						;Call WriteDec
+								
+ 00000E78  B8 00000000				mov eax,0
+ 00000E7D  B8 00000000			mov eax,0
+ 00000E82  BE 00000000			mov esi,0
+ 00000E87				FillOther:
+ 00000E87  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00000E8E  66| 83 C0 02					add ax,2
+ 00000E92  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00000E99  83 C6 02					add esi,type OtherOptions
+ 00000E9C  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00000EA3  66| 83 C0 01					add ax,1
+ 00000EA7  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00000EAE  83 C6 02					add esi,type OtherOptions
+ 00000EB1  66| A1					mov ax,CorrectAnswer
+	   00000637 R
+ 00000EB7  66| 83 C0 03					add ax,3
+ 00000EBB  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00000EC2  83 C6 02					add esi,type OtherOptions
+ 00000EC5  E8 FFFFF531					call writeans
+ 00000ECA  E8 FFFFF131					call Score
+ 00000ECF  C3			ret
+ 00000ED0			Mode ENDP
+
+ 00000ED0			Slope PROC
+ 00000ED0  BA 000003C6 R		mov edx,offset Smsg3
+ 00000ED5  E8 00000000 E		Call WriteString
+ 00000EDA  BA 000003F6 R		mov edx,offset Smsg3i
+ 00000EDF  E8 00000000 E		Call Randomize
+ 00000EE4  B8 00000006			mov eax,6
+ 00000EE9  E8 00000000 E		Call RandomRange
+ 00000EEE  83 C0 02			add eax,2
+ 00000EF1  A2 0000031C R		mov valY,al
+ 00000EF6  E8 00000000 E		Call WriteDec
+ 00000EFB  E8 00000000 E		Call WriteString
+ 00000F00  BA 000003FA R		mov edx,offset Smsg3ii
+ 00000F05  B8 00000064			mov eax,100
+ 00000F0A  E8 00000000 E		Call RandomRange
+ 00000F0F  83 C0 02			add eax,2
+ 00000F12  A2 0000031D R		mov valM,al
+ 00000F17  E8 00000000 E		Call WriteDec
+ 00000F1C  E8 00000000 E		Call WriteString
+ 00000F21  B8 0000000A			mov eax,10
+ 00000F26  E8 00000000 E		Call RandomRange
+ 00000F2B  83 C0 01			add eax,1
+ 00000F2E  E8 00000000 E		Call WriteDec
+ 00000F33  A2 0000031E R		mov valC,al
+ 00000F38				cal: ;now calculation of slope
+ 00000F38  66| 0F B6 05			movzx ax,valM
+	   0000031D R
+ 00000F40  BB 00000000			mov ebx,0
+ 00000F45  8A 1D 0000031C R		mov bl,valY
+ 00000F4B  F6 F3			div bl
+ 00000F4D  BB 00000000			mov ebx,0
+ 00000F52  66| 0F B6 D8			movzx bx,al
+ 00000F56  66| 89 1D			mov CorrectAnswer,bx
+	   00000637 R
+					;now options generations
+ 00000F5D  B8 00000000			mov eax,0
+ 00000F62  66| A1			mov ax,CorrectAnswer
+	   00000637 R
+					;Call WriteDec
+ 00000F68  BE 00000000			mov esi,0
+ 00000F6D  66| 83 C0 01			add ax,1
+ 00000F71  66| 89 86			mov OtherOptions[esi],ax
+	   00000639 R
+ 00000F78  B8 00000000			mov eax,0
+ 00000F7D  66| 0F B6 05			movzx ax,valM
+	   0000031D R
+ 00000F85  83 C6 02			add esi,type OtherOptions
+ 00000F88  66| 89 86			mov OtherOptions[esi],ax
+	   00000639 R
+ 00000F8F  83 C6 02			add esi,type OtherOptions
+ 00000F92  66| 83 C0 02			add ax,2
+ 00000F96  66| 89 86			mov OtherOptions[esi],ax
+	   00000639 R
+ 00000F9D  BE 00000000			mov esi,0
+ 00000FA2  B9 00000003			mov ecx,3
+ 00000FA7  E8 00000000 E		Call Crlf
+ 00000FAC  E8 FFFFF44A			Call writeans
+ 00000FB1  E8 FFFFF04A			Call Score
+ 00000FB6  C3			ret
+ 00000FB7			Slope ENDP
+
+ 00000FB7			MedianQuestion PROC
+ 00000FB7  BA 00000366 R		mov edx,offset Smsg1
+ 00000FBC  E8 00000000 E		Call WriteString
+ 00000FC1  E8 00000000 E		Call Randomize
+ 00000FC6  B9 00000019			mov ecx,lengthof Median1
+ 00000FCB  BE 00000000			mov esi,0
+ 00000FD0				GenerateNumbers:
+ 00000FD0  B8 0000001F				mov eax,31
+ 00000FD5  E8 00000000 E			Call RandomRange
+ 00000FDA  88 86 0000031F R			mov Median1[esi],al
+						;Call WriteDec
+						;Call Crlf
+ 00000FE0  46					inc esi
+ 00000FE1  E2 ED				loop GenerateNumbers
+						
+ 00000FE3  E8 00000000 E		Call Randomize
+ 00000FE8  B8 00000015			mov eax,lengthof Median1 - 4
+ 00000FED  E8 00000000 E		Call RandomRange
+ 00000FF2  83 C0 04			add eax,4
+ 00000FF5  8B C8			mov ecx,eax
+ 00000FF7  8B D8			mov ebx,eax
+ 00000FF9  BE 00000000			mov esi,0
+ 00000FFE				PrintSeries:
+ 00000FFE  0F B6 86				movzx eax,Median1[esi]
+	   0000031F R
+ 00001005  E8 00000000 E			Call WriteDec
+ 0000100A  BA 0000044E R			mov edx,offset msg1
+ 0000100F  E8 00000000 E			CAll WriteString
+ 00001014  46					inc esi
+ 00001015  E2 E7				Loop PrintSeries
+ 00001017  E8 00000000 E		Call Crlf
+ 0000101C  66| 8B C3			mov ax,bx
+ 0000101F  B1 02			mov cl,2
+ 00001021  F6 F1			div cl
+ 00001023  80 FC 00			cmp ah,0
+ 00001026  74 02			jz EvenMethod
+ 00001028  75 2F			jnz OddMethod
+ 0000102A				EvenMethod:
+ 0000102A  0F B6 F0				movzx esi,al
+ 0000102D  8A 86 0000031F R			mov al,Median1[esi]
+ 00001033  BB 00000000				mov ebx,0
+ 00001038  8A 9E 0000031E R			mov bl,Median1[esi-1]
+ 0000103E  02 C3				add al,bl
+ 00001040  66| 0F B6 C0				movzx ax,al
+ 00001044  F6 F1				div cl
+ 00001046  0F B6 D0				movzx edx,al
+ 00001049  66| 89 15				mov CorrectAnswer,dx
+	   00000637 R
+ 00001050  0F B7 05				movzx eax,CorrectAnswer
+	   00000637 R
+						;Call WriteDec
+ 00001057  EB 18				jmp OutSide
+ 00001059				OddMethod:
+ 00001059  0F B6 F0				movzx esi,al
+ 0000105C  66| 0F B6 86				movzx ax,Median1[esi]
+	   0000031F R
+ 00001064  66| A3				mov CorrectAnswer,ax
+	   00000637 R
+ 0000106A  0F B7 05				movzx eax,CorrectAnswer
+	   00000637 R
+						;Call WriteDec
+
+
+ 00001071			Outside:
+ 00001071  B8 00000000			mov eax,0
+ 00001076  B8 00000000			mov eax,0
+ 0000107B  BE 00000000			mov esi,0
+ 00001080				FillOther:
+ 00001080  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00001087  66| 83 C0 02					add ax,2
+ 0000108B  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00001092  83 C6 02					add esi,type OtherOptions
+ 00001095  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 0000109C  66| 83 C0 01					add ax,1
+ 000010A0  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 000010A7  83 C6 02					add esi,type OtherOptions
+ 000010AA  66| A1					mov ax,CorrectAnswer
+	   00000637 R
+ 000010B0  66| 83 E8 01					sub ax,1
+ 000010B4  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 000010BB  83 C6 02					add esi,type OtherOptions
+ 000010BE  E8 FFFFF338					call writeans
+ 000010C3  E8 FFFFEF38					call Score	
+ 000010C8  C3				ret
+ 000010C9			MedianQuestion ENDP
+
+ 000010C9			MeanQuestion PROC
+ 000010C9  BA 00000397 R		mov edx,offset Smsg2
+ 000010CE  E8 00000000 E		Call WriteString
+ 000010D3  B9 0000000D			mov ecx,lengthof Mean
+ 000010D8  BE 00000000			mov esi,0
+ 000010DD  E8 00000000 E		Call Randomize
+ 000010E2				GenerateMeanValues:
+ 000010E2  B8 00000014				mov eax,20
+ 000010E7  E8 00000000 E			Call RandomRange
+ 000010EC  88 86 0000030F R			mov Mean[esi],al
+ 000010F2  46					inc esi
+ 000010F3  E2 ED				Loop GenerateMeanValues
+ 000010F5  B8 00000000			mov eax,0
+ 000010FA  B9 0000000D			mov ecx,lengthof Mean
+ 000010FF  49				dec ecx
+ 00001100  BE 00000000			mov esi,0
+ 00001105  BA 0000044E R		mov edx,offset msg1
+ 0000110A				PrintSeries:
+ 0000110A  0F B6 86				movzx eax,Mean[esi]
+	   0000030F R
+ 00001111  E8 00000000 E			Call WriteDec
+ 00001116  E8 00000000 E			Call WriteString
+ 0000111B  46					inc esi
+ 0000111C  E2 EC				Loop PrintSeries
+ 0000111E  0F B6 86			movzx eax,Mean[esi]
+	   0000030F R
+ 00001125  E8 00000000 E		Call WriteDec
+ 0000112A  E8 00000000 E		Call Crlf
+ 0000112F  B8 00000000			mov eax,0
+ 00001134  B9 0000000D			mov ecx,lengthof Mean
+ 00001139  BE 00000000			mov esi,0		
+ 0000113E				CalculateSum:
+ 0000113E  02 86 0000030F R			add al,Mean[esi]
+ 00001144  46					inc esi
+ 00001145  E2 F7				loop CalculateSum
+
+					;Call WriteDec
+ 00001147  B3 0D			mov bl,lengthof Mean
+ 00001149  F6 F3			div bl
+ 0000114B  B9 00000000			mov ecx,0
+ 00001150  66| 0F B6 C8			movzx cx,al
+ 00001154  66| 89 0D			mov CorrectAnswer,cx
+	   00000637 R
+ 0000115B  B8 00000000			mov eax,0
+ 00001160  B8 00000000			mov eax,0
+ 00001165  BE 00000000			mov esi,0
+ 0000116A				FillOther:
+ 0000116A  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00001171  66| 83 C0 02					add ax,2
+ 00001175  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 0000117C  83 C6 02					add esi,type OtherOptions
+ 0000117F  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00001186  66| 83 C0 01					add ax,1
+ 0000118A  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00001191  83 C6 02					add esi,type OtherOptions
+ 00001194  66| A1					mov ax,CorrectAnswer
+	   00000637 R
+ 0000119A  66| 83 C0 03					add ax,3
+ 0000119E  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 000011A5  83 C6 02					add esi,type OtherOptions
+ 000011A8  E8 FFFFF24E					call writeans
+ 000011AD  E8 FFFFEE4E					call Score
+ 000011B2  C3				ret
+ 000011B3			MeanQuestion ENDP
+
+ 000011B3			ValueSummation PROC
+					
+ 000011B3  BA 0000042F R		mov edx,offset Smsg5
+ 000011B8  E8 00000000 E		Call WriteString
+ 000011BD  B9 0000000F			mov ecx,lengthof Summation
+ 000011C2  BA 0000044E R		mov edx,offset msg1
+ 000011C7  E8 00000000 E		Call Randomize
+ 000011CC  BE 00000000			mov esi,0
+ 000011D1				GenerateValues:
+ 000011D1  B8 0000000F				mov eax,15
+ 000011D6  E8 00000000 E			Call RandomRange
+ 000011DB  83 C0 01				add eax,1
+						;Call WriteDec
+						;Call WriteString
+ 000011DE  88 86 00000357 R			mov Summation[esi],al
+ 000011E4  46					inc esi
+ 000011E5  E2 EA				loop GenerateValues
+ 000011E7  E8 00000000 E		Call Randomize
+ 000011EC  B8 0000000E			mov eax,14
+ 000011F1  E8 00000000 E		Call RandomRange
+ 000011F6  83 C0 01			add eax,1
+ 000011F9  8B C8			mov ecx,eax
+ 000011FB  BE 00000000			mov esi,0
+ 00001200  B8 00000000			mov eax,0
+ 00001205  BB 00000000			mov ebx,0
+ 0000120A				CalculateSum:
+ 0000120A  66| 0F B6 86				movzx ax,Summation[esi]
+	   00000357 R
+ 00001212  E8 00000000 E			Call WriteDec
+ 00001217  E8 00000000 E			Call WriteString
+ 0000121C  66| 03 D8				add bx,ax
+ 0000121F  46					inc esi
+ 00001220  E2 E8				loop CalculateSum
+ 00001222  E8 00000000 E		Call Crlf
+ 00001227  66| 89 1D			mov CorrectAnswer,bx
+	   00000637 R
+ 0000122E  0F B7 05			movzx eax,CorrectAnswer
+	   00000637 R
+					;Call WriteDec
+					;Call Crlf
+ 00001235  B8 00000000			mov eax,0
+ 0000123A  B8 00000000			mov eax,0
+ 0000123F  BE 00000000			mov esi,0
+ 00001244				FillOther:
+ 00001244  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 0000124B  66| 83 C0 02					add ax,2
+ 0000124F  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00001256  83 C6 02					add esi,type OtherOptions
+ 00001259  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00001260  66| 83 C0 01					add ax,1
+ 00001264  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 0000126B  83 C6 02					add esi,type OtherOptions
+ 0000126E  66| A1					mov ax,CorrectAnswer
+	   00000637 R
+ 00001274  66| 83 C0 03					add ax,3
+ 00001278  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 0000127F  83 C6 02					add esi,type OtherOptions
+ 00001282  E8 FFFFF174					call writeans
+ 00001287  E8 FFFFED74					call Score
+ 0000128C  C3			ret
+ 0000128D			ValueSummation ENDP
+
+
+ 0000128D			Newton_Law PROC
+							;; generating the val of mass
+ 0000128D  E8 00000000 E			Call Randomize
+ 00001292  B8 0000001E				mov eax,30
+ 00001297  E8 00000000 E			Call RandomRange
+ 0000129C  83 C0 01				add eax,1
+ 0000129F  A2 00000457 R			mov valMass,al
+ 000012A4  B8 00000000				mov eax,0
+						;Call DumpRegs
+							;; generatring the value of acc
+						;Call Randomize
+ 000012A9  B8 0000001E				mov eax,30
+ 000012AE  E8 00000000 E			Call RandomRange
+ 000012B3  83 C0 01				add eax,1
+ 000012B6  A2 00000455 R			mov valAcc,al
+ 000012BB  BA 00000000 R			mov edx,offset Pmsg1
+ 000012C0  E8 00000000 E			Call WriteString
+ 000012C5  0F B6 05				movzx eax,valMass
+	   00000457 R
+ 000012CC  E8 00000000 E			Call WriteDec
+ 000012D1  BA 0000044C R			mov edx,offset msg
+ 000012D6  E8 00000000 E			Call WriteString
+ 000012DB  0F B6 05				movzx eax,valAcc
+	   00000455 R
+ 000012E2  E8 00000000 E			Call WriteDec
+ 000012E7  E8 00000000 E			Call Crlf
+ 000012EC  B8 00000000				mov eax,0
+						;Call DumpRegs
+							;; Calculating the correct answer
+ 000012F1  A0 00000457 R			mov al,valMass
+ 000012F6  F6 25 00000455 R			mul valAcc
+ 000012FC  66| A3				mov CorrectAnswer,ax
+	   00000637 R
+						;Call WriteDec
+ 00001302  E8 00000000 E			Call Randomize
+ 00001307  E8 00000000 E			Call RandomRange
+ 0000130C  BE 00000000				mov esi,0
+ 00001311  E8 00000000 E			Call Randomize
+
+						;;wrong answers added
+ 00001316					FillOther:
+ 00001316  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 0000131D  66| 83 C0 01					add ax,1
+ 00001321  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00001328  83 C6 02					add esi,type OtherOptions
+ 0000132B  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00001332  66| 83 E8 01					sub ax,1
+ 00001336  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 0000133D  83 C6 02					add esi,type OtherOptions
+ 00001340  66| A1					mov ax,CorrectAnswer
+	   00000637 R
+ 00001346  66| 83 C0 0A					add ax,10
+ 0000134A  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00001351  83 C6 02					add esi,type OtherOptions
+ 00001354  E8 FFFFF0A2					call writeans
+ 00001359  E8 FFFFECA2					Call Score
+							
+ 0000135E  C3			ret		
+ 0000135F			Newton_Law ENDP
+
+
+
+ 0000135F			Kinetic_Energy PROC
+						;; generating value of mass 
+ 0000135F  B8 00000000				mov eax,0
+ 00001364  B9 00000000				mov ecx,0
+ 00001369  BA 00000000				mov edx,0
+ 0000136E  BB 00000000				mov ebx,0
+ 00001373  E8 00000000 E		Call Randomize
+ 00001378  B8 00000000			mov eax,0
+ 0000137D  B8 00000032			mov eax,50
+ 00001382  E8 00000000 E		Call RandomRange
+ 00001387  A2 00000457 R		mov valMass,al
+ 0000138C  B8 00000000			mov eax,0
+						;; generating value of velocity
+ 00001391  E8 00000000 E		Call Randomize
+ 00001396  B8 0000000F			mov eax,15
+ 0000139B  E8 00000000 E		Call RandomRange
+ 000013A0  04 01			add al,1
+ 000013A2  A2 00000458 R		mov valVelocity,al
+ 000013A7  66| 0F B6 05			movzx ax,valVelocity
+	   00000458 R
+ 000013AF  B3 02			mov bl,2
+ 000013B1  F6 F3			div bl
+ 000013B3  80 FC 00			cmp ah,0
+ 000013B6  75 02			jne ChangeVelocity
+ 000013B8  74 12			je NoChange
+ 000013BA				ChangeVelocity:
+ 000013BA  66| 0F B6 05				movzx ax,valVelocity
+	   00000458 R
+ 000013C2  83 C0 01				add eax,1
+ 000013C5  A2 00000458 R			mov valVelocity,al
+ 000013CA  EB 0A				jmp Calculations
+ 000013CC				NoChange:
+ 000013CC  BB 00000000			mov ebx,0
+ 000013D1  B8 00000000			mov eax,0
+ 000013D6				Calculations:
+ 000013D6  BA 00000036 R		mov edx,offset Pmsg4
+ 000013DB  E8 00000000 E		Call WriteString
+ 000013E0  BA 00000000			mov edx,0
+ 000013E5  0F B6 05			movzx eax,valMass
+	   00000457 R
+ 000013EC  E8 00000000 E		Call WriteDec
+ 000013F1  BA 0000044C R		mov edx,offset msg
+ 000013F6  E8 00000000 E		Call WriteString
+ 000013FB  0F B6 05			movzx eax,valVelocity
+	   00000458 R
+ 00001402  E8 00000000 E		Call WriteDec
+ 00001407  E8 00000000 E		Call Crlf
+ 0000140C  A0 00000458 R		mov al,valVelocity
+ 00001411  F6 E0			mul al
+ 00001413  B3 02			mov bl,2
+ 00001415  F6 F3			div bl
+ 00001417  BB 00000000			mov ebx,0
+ 0000141C  8A D8			mov bl,al
+ 0000141E  B8 00000000			mov eax,0
+ 00001423  8A C3			mov al,bl
+ 00001425  F6 25 00000457 R		mul valMass
+ 0000142B  66| A3			mov CorrectAnswer,ax
+	   00000637 R
+ 00001431  B8 00000000			mov eax,0
+ 00001436  66| A1			mov  ax,CorrectAnswer
+	   00000637 R
+ 0000143C  B8 00000000			mov eax,0
+ 00001441  BE 00000000			mov esi,0
+ 00001446				FillOther:
+ 00001446  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 0000144D  66| 83 C0 02					add ax,2
+ 00001451  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00001458  83 C6 02					add esi,type OtherOptions
+ 0000145B  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00001462  66| 83 E8 03					sub ax,3
+ 00001466  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 0000146D  83 C6 02					add esi,type OtherOptions
+ 00001470  66| A1					mov ax,CorrectAnswer
+	   00000637 R
+ 00001476  66| 83 C0 05					add ax,5
+ 0000147A  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00001481  83 C6 02					add esi,type OtherOptions
+ 00001484  E8 FFFFEF72					call writeans
+ 00001489  E8 FFFFEB72					Call Score
+
+ 0000148E  C3			ret
+ 0000148F			Kinetic_Energy ENDP
+
+ 0000148F			Centripetal_Acc PROC
+ 0000148F  B8 00000000				mov eax,0
+ 00001494  B9 00000000				mov ecx,0
+ 00001499  BA 00000000				mov edx,0
+ 0000149E  BB 00000000				mov ebx,0
+ 000014A3  E8 00000000 E		Call Randomize
+ 000014A8  B8 0000000F			mov eax,15
+ 000014AD  E8 00000000 E		Call RandomRange
+ 000014B2  83 C0 03			add eax,3
+ 000014B5  A2 00000458 R		mov valVelocity,al
+ 000014BA  E8 00000000 E		Call Randomrange
+ 000014BF  83 C0 02			add eax,2
+ 000014C2  A2 00000459 R		mov valRadius,al
+ 000014C7  BA 0000007F R		mov edx,offset Pmsg5
+ 000014CC  E8 00000000 E		Call WriteString
+ 000014D1  0F B6 05			movzx eax,valVelocity
+	   00000458 R
+ 000014D8  E8 00000000 E		Call WriteDec
+ 000014DD  BA 0000044C R		mov edx,offset msg
+ 000014E2  E8 00000000 E		Call WriteString
+ 000014E7  0F B6 05			movzx eax,valRadius
+	   00000459 R
+ 000014EE  E8 00000000 E		Call WriteDec
+ 000014F3  E8 00000000 E		Call Crlf
+					;now for the calculation
+ 000014F8  B8 00000000			mov eax,0
+ 000014FD  A0 00000458 R		mov al,valVelocity
+ 00001502  F6 E0			mul al
+ 00001504  BB 00000000			mov ebx,0
+ 00001509  8A 1D 00000459 R		mov bl,valRadius
+ 0000150F  F6 F3			div bl
+ 00001511  BA 00000000			mov edx,0
+ 00001516  66| 0F B6 D0			movzx dx,al
+ 0000151A  66| 89 15			mov CorrectAnswer,dx
+	   00000637 R
+ 00001521  66| A1			mov ax,CorrectAnswer
+	   00000637 R
+ 00001527  B8 00000000			mov eax,0
+ 0000152C  BE 00000000			mov esi,0
+ 00001531				FillOther:
+ 00001531  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00001538  66| 83 C0 04					add ax,4
+ 0000153C  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00001543  83 C6 02					add esi,type OtherOptions
+ 00001546  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 0000154D  66| 83 E8 01					sub ax,1
+ 00001551  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00001558  83 C6 02					add esi,type OtherOptions
+ 0000155B  66| A1					mov ax,CorrectAnswer
+	   00000637 R
+ 00001561  66| 83 C0 03					add ax,3
+ 00001565  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 0000156C  83 C6 02					add esi,type OtherOptions
+ 0000156F  E8 FFFFEE87					call writeans
+ 00001574  E8 FFFFEA87					Call Score
+ 00001579  C3			ret
+ 0000157A			Centripetal_Acc ENDP
+
+
+ 0000157A			Current PROC
+ 0000157A  B8 00000000			mov eax,0
+ 0000157F  B9 00000000				mov ecx,0
+ 00001584  BA 00000000				mov edx,0
+ 00001589  BB 00000000				mov ebx,0
+ 0000158E  BA 000000D4 R		mov edx,offset Pmsg6
+ 00001593  E8 00000000 E		Call WriteString
+						;; generating the value of charge
+ 00001598  E8 00000000 E		Call Randomize
+ 0000159D  B8 00000050			mov eax,80
+ 000015A2  E8 00000000 E		Call RandomRange
+ 000015A7  83 C0 01			add eax,1
+ 000015AA  A2 0000045A R		mov valCharge,al
+ 000015AF  E8 00000000 E		Call WriteDec
+ 000015B4  BA 0000044C R		mov edx,offset msg
+ 000015B9  E8 00000000 E		Call WriteString
+						;; generating the value of time
+ 000015BE  E8 00000000 E		Call Randomize
+ 000015C3  E8 00000000 E		Call RandomRange
+ 000015C8  83 C0 01			add eax,1
+ 000015CB  A2 0000045B R		mov valTime,al
+ 000015D0  E8 00000000 E		Call WriteDec
+ 000015D5  E8 00000000 E		Call Crlf
+						;; Calculating correct answer
+ 000015DA  B8 00000000			mov eax,0
+ 000015DF  BA 00000000			mov edx,0
+ 000015E4  BB 00000000			mov ebx,0
+ 000015E9  66| 0F B6 05			movzx ax,valCharge
+	   0000045A R
+ 000015F1  F6 35 0000045B R		div valTime
+ 000015F7  66| 0F B6 D0			movzx dx,al
+ 000015FB  66| 89 15			mov CorrectAnswer,dx
+	   00000637 R
+ 00001602  0F B7 05			movzx eax,CorrectAnswer
+	   00000637 R
+ 00001609  B8 00000000			mov eax,0
+ 0000160E  BE 00000000			mov esi,0
+ 00001613				FillOther:
+ 00001613  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 0000161A  66| 83 C0 03					add ax,3
+ 0000161E  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00001625  83 C6 02					add esi,type OtherOptions
+ 00001628  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 0000162F  66| 83 C0 02					add ax,2
+ 00001633  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 0000163A  83 C6 02					add esi,type OtherOptions
+ 0000163D  66| A1					mov ax,CorrectAnswer
+	   00000637 R
+ 00001643  66| 83 C0 05					add ax,5
+ 00001647  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 0000164E  83 C6 02					add esi,type OtherOptions
+ 00001651  E8 FFFFEDA5					call writeans
+ 00001656  E8 FFFFE9A5					call Score
+
+ 0000165B  C3			ret
+ 0000165C			Current ENDP
+
+
+ 0000165C			Torque PROC
+ 0000165C  BA 00000113 R		mov edx,offset Pmsg7
+ 00001661  E8 00000000 E		Call WriteString
+ 00001666  E8 00000000 E		Call Randomize
+ 0000166B  B8 0000000F			mov eax,15
+ 00001670  E8 00000000 E		Call RandomRange
+ 00001675  83 C0 01			add eax,1
+ 00001678  E8 00000000 E		Call WriteDec
+ 0000167D  A2 00000459 R		mov valRadius,al
+ 00001682  B8 00000000			mov eax,0
+ 00001687  B8 0000000F			mov eax,15
+ 0000168C  E8 00000000 E		Call Randomrange
+ 00001691  83 C0 01			add eax,1
+ 00001694  BA 0000044C R		mov edx,offset msg
+ 00001699  E8 00000000 E		Call WriteString
+ 0000169E  E8 00000000 E		Call WriteDec
+ 000016A3  E8 00000000 E		Call Crlf
+ 000016A8  BA 00000000			mov edx,0
+ 000016AD  A2 00000456 R		mov valForce,al
+ 000016B2  B8 00000000			mov eax,0
+ 000016B7  A0 00000456 R		mov al,valForce
+ 000016BC  F6 25 00000459 R		mul valRadius
+ 000016C2  66| A3			mov CorrectAnswer,ax
+	   00000637 R
+					;Call WriteDec
+ 000016C8  0F B7 05			movzx eax,CorrectAnswer
+	   00000637 R
+ 000016CF  B8 00000000			mov eax,0
+ 000016D4  BE 00000000			mov esi,0
+ 000016D9				FillOther:
+ 000016D9  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 000016E0  66| 83 C0 0A					add ax,10
+ 000016E4  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 000016EB  83 C6 02					add esi,type OtherOptions
+ 000016EE  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 000016F5  66| 83 E8 02					sub ax,2
+ 000016F9  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00001700  83 C6 02					add esi,type OtherOptions
+ 00001703  66| A1					mov ax,CorrectAnswer
+	   00000637 R
+ 00001709  66| 83 C0 04					add ax,4
+ 0000170D  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00001714  83 C6 02					add esi,type OtherOptions
+ 00001717  E8 FFFFECDF					call writeans
+ 0000171C  E8 FFFFE8DF					call Score
+
+ 00001721  C3			ret
+ 00001722			Torque ENDP
+
+
+ 00001722			Velocity PROC
+ 00001722  BA 00000159 R		mov edx,offset Pmsg8
+ 00001727  E8 00000000 E		Call WriteString
+ 0000172C  BA 0000044C R		mov edx,offset msg
+ 00001731  E8 00000000 E		Call Randomize
+ 00001736  B8 0000003C			mov eax,60
+ 0000173B  E8 00000000 E		Call RandomRange
+ 00001740  83 C0 03			add eax,3
+ 00001743  E8 00000000 E		Call WriteDec
+ 00001748  E8 00000000 E		Call WriteString
+ 0000174D  A2 0000045C R		mov valDisplacement,al
+ 00001752  E8 00000000 E		Call RandomRange
+ 00001757  83 C0 01			add eax,1
+ 0000175A  E8 00000000 E		Call WriteDec
+ 0000175F  E8 00000000 E		Call Crlf
+ 00001764  A2 0000045B R		mov valTime,al
+ 00001769  B8 00000000			mov eax,0
+ 0000176E  BA 00000000			mov edx,0
+ 00001773  BB 00000000			mov ebx,0
+ 00001778  66| 0F B6 05			movzx ax,valDisplacement
+	   0000045C R
+ 00001780  F6 35 0000045B R		div valTime
+ 00001786  66| 0F B6 D0			movzx dx,al
+ 0000178A  66| 89 15			mov CorrectAnswer,dx
+	   00000637 R
+ 00001791  B8 00000000			mov eax,0
+ 00001796  B8 00000000			mov eax,0
+ 0000179B  BE 00000000			mov esi,0
+ 000017A0				FillOther:
+ 000017A0  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 000017A7  66| 83 C0 02					add ax,2
+ 000017AB  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 000017B2  83 C6 02					add esi,type OtherOptions
+ 000017B5  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 000017BC  66| 83 C0 03					add ax,3
+ 000017C0  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 000017C7  83 C6 02					add esi,type OtherOptions
+ 000017CA  66| A1					mov ax,CorrectAnswer
+	   00000637 R
+ 000017D0  66| 83 C0 05					add ax,5
+ 000017D4  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 000017DB  83 C6 02					add esi,type OtherOptions
+ 000017DE  E8 FFFFEC18					call writeans
+ 000017E3  E8 FFFFE818					Call Score
+ 000017E8  C3			ret
+ 000017E9			Velocity ENDP
+
+ 000017E9			Distance PROC
+ 000017E9  BA 000001A0 R		mov edx,offset Pmsg9
+ 000017EE  E8 00000000 E		Call WriteString
+					;;generating value for velocity
+ 000017F3  E8 00000000 E		call randomize
+ 000017F8  B8 00000000			mov eax,0
+ 000017FD  B8 0000000A			mov eax,10
+ 00001802  E8 00000000 E		call randomrange
+					
+ 00001807  A2 00000458 R		mov valVelocity,al
+ 0000180C  E8 00000000 E		call writedec
+					;;generating value for time
+ 00001811  B8 00000000			mov eax,0
+ 00001816  B8 0000000A			mov eax,10
+ 0000181B  E8 00000000 E		call randomrange
+					
+ 00001820  BA 0000044C R		mov edx,offset msg
+ 00001825  E8 00000000 E		call writestring
+ 0000182A  E8 00000000 E		call writedec
+ 0000182F  E8 00000000 E		call crlf
+ 00001834  A2 0000045B R		mov valTime,al
+ 00001839  F6 25 00000458 R		mul valVelocity
+ 0000183F  66| A3			mov CorrectAnswer,ax
+	   00000637 R
+ 00001845  B8 00000000			mov eax,0
+ 0000184A  BE 00000000			mov esi,0
+ 0000184F				FillOther:
+ 0000184F  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00001856  66| 83 C0 03					add ax,3
+ 0000185A  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00001861  83 C6 02					add esi,type OtherOptions
+ 00001864  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 0000186B  66| 83 C0 05					add ax,5
+ 0000186F  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00001876  83 C6 02					add esi,type OtherOptions
+ 00001879  66| A1					mov ax,CorrectAnswer
+	   00000637 R
+ 0000187F  66| 83 C0 09					add ax,9
+ 00001883  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 0000188A  83 C6 02					add esi,type OtherOptions
+ 0000188D  E8 FFFFEB69					call writeans
+ 00001892  E8 FFFFE769					Call Score
+ 00001897  C3			ret
+ 00001898			Distance ENDP
+
+ 00001898			Linear_Momentum PROC
+ 00001898  BA 000002C6 R		mov edx,offset Pmsg13
+ 0000189D  E8 00000000 E		Call WriteString
+ 000018A2  E8 00000000 E		Call Randomize
+ 000018A7  B8 00000000			mov eax,0
+ 000018AC  B8 0000000F			mov eax,15
+ 000018B1  E8 00000000 E		Call RandomRange
+ 000018B6  83 C0 02			add eax,2
+						;;generating value for mass
+ 000018B9  E8 00000000 E		Call WriteDec
+ 000018BE  BA 0000044C R		mov edx,offset msg
+ 000018C3  E8 00000000 E		Call WriteString
+ 000018C8  A2 00000457 R		mov valMass,al
+ 000018CD  B8 0000000F			mov eax,15
+ 000018D2  E8 00000000 E		Call RandomRange
+ 000018D7  83 C0 03			add eax,3
+ 000018DA  E8 00000000 E		Call WriteDec
+ 000018DF  E8 00000000 E		Call Crlf
+						;; generating value for velocity
+ 000018E4  A2 00000458 R		mov valVelocity, al
+ 000018E9  F6 25 00000457 R		mul valMass
+ 000018EF  66| A3			mov correctanswer,ax
+	   00000637 R
+ 000018F5  B8 00000000			mov eax,0
+ 000018FA  BE 00000000			mov esi,0
+ 000018FF				FillOther:
+ 000018FF  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 00001906  66| 83 C0 03					add ax,3
+ 0000190A  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00001911  83 C6 02					add esi,type OtherOptions
+ 00001914  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 0000191B  66| 83 E8 05					sub ax,5
+ 0000191F  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 00001926  83 C6 02					add esi,type OtherOptions
+ 00001929  66| A1					mov ax,CorrectAnswer
+	   00000637 R
+ 0000192F  66| 83 C0 09					add ax,9
+ 00001933  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 0000193A  83 C6 02					add esi,type OtherOptions
+ 0000193D  E8 FFFFEAB9					call writeans
+ 00001942  E8 FFFFE6B9					Call Score
+ 00001947  C3			ret
+ 00001948			Linear_Momentum ENDP 
+
+ 00001948			Angular_Velocity PROC
+							;; generating the value of velocity
+ 00001948  BA 000001E3 R		mov edx,offset Pmsg10
+ 0000194D  E8 00000000 E		Call WriteString
+ 00001952  BA 0000044C R		mov edx,offset msg
+ 00001957  E8 00000000 E		Call Randomize
+ 0000195C  B8 00000012			mov eax,18
+ 00001961  E8 00000000 E		Call RandomRange
+ 00001966  83 C0 01			add eax,1
+ 00001969  E8 00000000 E		Call WriteDec
+ 0000196E  A2 00000458 R		mov valVelocity,al
+							;; generating the value of radius
+ 00001973  E8 00000000 E		Call RandomRange
+ 00001978  83 C0 01			add eax,1
+ 0000197B  E8 00000000 E		Call WriteString
+ 00001980  E8 00000000 E		Call WriteDec
+ 00001985  E8 00000000 E		Call Crlf
+ 0000198A  A2 00000459 R		mov valRadius,al
+							;; v=rw
+ 0000198F  66| 0F B6 05			movzx ax,valVelocity
+	   00000458 R
+ 00001997  F6 35 00000459 R		div valRadius
+ 0000199D  66| 0F B6 D0			movzx dx,al
+ 000019A1  66| 89 15			mov CorrectAnswer,dx
+	   00000637 R
+ 000019A8  B8 00000000			mov eax,0
+ 000019AD  BE 00000000			mov esi,0
+ 000019B2				FillOther:
+ 000019B2  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 000019B9  66| 83 C0 03					add ax,3
+ 000019BD  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 000019C4  83 C6 02					add esi,type OtherOptions
+ 000019C7  0F B7 05					movzx eax,CorrectAnswer
+	   00000637 R
+ 000019CE  66| 83 C0 05					add ax,5
+ 000019D2  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 000019D9  83 C6 02					add esi,type OtherOptions
+ 000019DC  66| A1					mov ax,CorrectAnswer
+	   00000637 R
+ 000019E2  66| 83 C0 09					add ax,9
+ 000019E6  66| 89 86					mov otheroptions[esi],ax
+	   00000639 R
+ 000019ED  83 C6 02					add esi,type OtherOptions
+ 000019F0  E8 FFFFEA06					call writeans
+ 000019F5  E8 FFFFE606					Call Score
+
+ 000019FA  C3			ret
+ 000019FB			Angular_Velocity ENDP
+
+ 000019FB			Frequency PROC
+ 000019FB  BA 00000281 R		mov edx,offset Pmsg12
+ 00001A00  E8 00000000 E		Call WriteString
+						;; generating the value of velocity
+ 00001A05  E8 00000000 E		Call Randomize
+ 00001A0A  B8 00000019			mov eax,25
+ 00001A0F  E8 00000000 E		Call RandomRange
+ 00001A14  83 C0 01			add eax,1
+ 00001A17  E8 00000000 E		Call WriteDec
+ 00001A1C  BA 0000044C R		mov edx,offset msg
+ 00001A21  E8 00000000 E		Call WriteString
+ 00001A26  A2 00000458 R		mov valVelocity,al
+						;; generating the value of lambda
+ 00001A2B  E8 00000000 E		Call RandomRange
+ 00001A30  83 C0 01			add eax,1
+ 00001A33  E8 00000000 E		Call WriteDec
+ 00001A38  E8 00000000 E		Call Crlf
+ 00001A3D  A2 0000045E R		mov valLambda,al
+						;; f=v/lambda
+ 00001A42  66| 0F B6 05			movzx ax,valVelocity
+	   00000458 R
+ 00001A4A  F6 35 0000045E R		div valLambda
+ 00001A50  66| 0F B6 D0			movzx dx,al
+ 00001A54  66| 89 15			mov CorrectAnswer,dx
+	   00000637 R
+ 00001A5B  0F B7 05			movzx eax,CorrectAnswer
+	   00000637 R
+					;Call WriteDec
+ 00001A62  B8 00000000			mov eax,0
+ 00001A67  BE 00000000			mov esi,0
+ 00001A6C  0F B7 05			movzx eax,CorrectAnswer
+	   00000637 R
+ 00001A73  66| 83 C0 03			add ax,3
+ 00001A77  66| 89 86			mov OtherOptions[esi],ax
+	   00000639 R
+ 00001A7E  83 C6 02			add esi,type OtherOptions
+ 00001A81  0F B7 05			movzx eax,CorrectAnswer
+	   00000637 R
+ 00001A88  66| 83 C0 09			add ax,9
+ 00001A8C  66| 89 86			mov OtherOptions[esi],ax
+	   00000639 R
+ 00001A93  83 C6 02			add esi,type OtherOptions
+ 00001A96  0F B7 05			movzx eax,CorrectAnswer
+	   00000637 R
+ 00001A9D  66| 83 C0 05			add ax,5
+ 00001AA1  66| 89 86			mov OtherOptions[esi],ax
+	   00000639 R
+ 00001AA8  83 C6 02			add esi,type OtherOptions
+ 00001AAB  E8 FFFFE94B			Call WriteAns
+ 00001AB0  E8 FFFFE54B			Call Score
+					
+ 00001AB5  C3			ret
+ 00001AB6			Frequency ENDP
+
+ 00001AB6			Wave_Speed PROC
+
+ 00001AB6  BA 00000237 R		mov edx,offset Pmsg11
+ 00001ABB  E8 00000000 E		Call WriteString
+						;; generating value of frequency
+ 00001AC0  E8 00000000 E		Call Randomize
+ 00001AC5  B8 0000000F			mov eax,15
+ 00001ACA  E8 00000000 E		Call RandomRange
+ 00001ACF  83 C0 01			add eax,1
+ 00001AD2  E8 00000000 E		Call WriteDec
+ 00001AD7  A2 00000458 R		mov valVelocity,al
+						;; generating the value of lambda
+					
+ 00001ADC  B8 0000000A			mov eax,10
+ 00001AE1  E8 00000000 E		Call RandomRange
+ 00001AE6  83 C0 01			add eax,1
+ 00001AE9  BA 0000044C R		mov edx,offset msg
+ 00001AEE  E8 00000000 E		Call WriteString
+ 00001AF3  E8 00000000 E		Call WriteDec
+ 00001AF8  E8 00000000 E		Call Crlf
+ 00001AFD  A2 0000045E R		mov valLambda,al
+ 00001B02  F6 25 00000458 R		mul valVelocity
+ 00001B08  66| A3			mov CorrectAnswer,ax
+	   00000637 R
+ 00001B0E  0F B7 05			movzx eax,CorrectAnswer
+	   00000637 R
+					;Call WriteDec
+
+ 00001B15  B8 00000000			mov eax,0
+ 00001B1A  BE 00000000			mov esi,0
+
+ 00001B1F  0F B7 05			movzx eax,CorrectAnswer
+	   00000637 R
+ 00001B26  66| 83 C0 03			add ax,3
+ 00001B2A  66| 89 86			mov OtherOptions[esi],ax
+	   00000639 R
+ 00001B31  83 C6 02			add esi,type OtherOptions
+ 00001B34  0F B7 05			movzx eax,CorrectAnswer
+	   00000637 R
+ 00001B3B  66| 83 C0 09			add ax,9
+ 00001B3F  66| 89 86			mov OtherOptions[esi],ax
+	   00000639 R
+ 00001B46  83 C6 02			add esi,type OtherOptions
+ 00001B49  0F B7 05			movzx eax,CorrectAnswer
+	   00000637 R
+ 00001B50  66| 83 C0 05			add ax,5
+ 00001B54  66| 89 86			mov OtherOptions[esi],ax
+	   00000639 R
+ 00001B5B  83 C6 02			add esi,type OtherOptions
+ 00001B5E  E8 FFFFE898			Call WriteAns
+ 00001B63  E8 FFFFE498			Call Score
+ 00001B68  C3			ret
+ 00001B69			Wave_Speed ENDP
+
+
+
+ 00001B69			main PROC
+
+ 00001B69				ReloopMain:
+ 00001B69  BA 000007E9 R		mov edx,offset WelcomeQuiz
+ 00001B6E  E8 00000000 E		Call WriteString
+ 00001B73  E8 00000000 E		Call Crlf
+ 00001B78  BA 00000841 R		mov edx,offset WelcomeQuiz1
+ 00001B7D  E8 00000000 E		Call WriteString
+ 00001B82  E8 00000000 E		Call Crlf
+ 00001B87  BA 000007E9 R		mov edx,offset WelcomeQuiz
+ 00001B8C  E8 00000000 E		Call WriteString
+ 00001B91  E8 00000000 E		Call Crlf
+ 00001B96  E8 00000000 E		Call Crlf
+ 00001B9B  BA 00000000			mov edx,0
+ 00001BA0  BA 00000879 R		mov edx,offset menu2
+ 00001BA5  E8 00000000 E		Call WriteString
+ 00001BAA  E8 00000000 E		Call Crlf
+ 00001BAF  BA 0000088B R		mov edx,offset menu3
+ 00001BB4  E8 00000000 E		Call WriteString
+ 00001BB9  E8 00000000 E		Call Crlf
+ 00001BBE  BA 000008A1 R		mov edx,offset menu4
+ 00001BC3  E8 00000000 E		Call WriteString
+ 00001BC8  E8 00000000 E		Call Crlf
+ 00001BCD  BA 000008B6 R		mov edx,offset menu5
+ 00001BD2  E8 00000000 E		Call WriteString
+ 00001BD7  E8 00000000 E		Call Crlf
+ 00001BDC  E8 00000000 E		Call Crlf
+ 00001BE1  BA 00000860 R		mov edx,offset menu1
+ 00001BE6  E8 00000000 E		Call WriteString
+ 00001BEB  E8 00000000 E		Call ReadInt
+ 00001BF0  3C 01			cmp al,1
+ 00001BF2  74 36			je PhysicsCalling
+ 00001BF4  3C 02			cmp al,2
+ 00001BF6  0F 84 000000C9		je MathsCalling
+ 00001BFC  3C 03			cmp al,3
+ 00001BFE  0F 84 0000015C		je StatsCalling
+ 00001C04  3C 04			cmp al,4
+ 00001C06  0F 84 000001E9		je Term
+ 00001C0C  BA 000008C5 R		mov edx,offset ErrorMsg
+ 00001C11  E8 00000000 E		Call WriteString
+ 00001C16  B8 000003E8			mov eax,1000
+ 00001C1B  E8 00000000 E		Call Delay
+ 00001C20  E8 00000000 E		Call Clrscr
+ 00001C25  E9 FFFFFF3F			jmp ReloopMain
+ 00001C2A				PhysicsCalling:
+						
+ 00001C2A  E8 FFFFE511				Call PhysicsQuestionGenerator
+ 00001C2F					ReloopPhysics:
+ 00001C2F  BA 0000088B R			mov edx,offset menu3
+ 00001C34  E8 00000000 E			Call Crlf
+ 00001C39  E8 00000000 E			Call WriteString
+ 00001C3E  E8 00000000 E			Call Crlf
+ 00001C43  BA 000008A1 R			mov edx,offset menu4
+ 00001C48  E8 00000000 E			Call WriteString
+ 00001C4D  E8 00000000 E			Call Crlf
+						
+ 00001C52  BA 00000860 R			mov edx,offset menu1
+ 00001C57  E8 00000000 E			Call WriteString
+ 00001C5C  E8 00000000 E			Call ReadInt
+ 00001C61  3C 02				cmp al,2
+ 00001C63  74 1F				je MathsPCalling
+ 00001C65  3C 03				cmp al,3
+ 00001C67  74 3E				je StatsPCalling
+ 00001C69  BA 000008C5 R			mov edx,offset ErrorMsg
+ 00001C6E  E8 00000000 E			Call WriteString
+ 00001C73  B8 000003E8				mov eax,1000
+ 00001C78  E8 00000000 E			Call Delay
+ 00001C7D  E8 00000000 E			Call Clrscr
+ 00001C82  EB AB				jmp ReloopPhysics
+ 00001C84					MathsPCalling:
+ 00001C84  E8 00000000 E				Call Crlf
+ 00001C89  E8 FFFFE5A9					Call MathsQuestionGenerator
+ 00001C8E  E8 00000000 E				Call Crlf
+ 00001C93  E8 00000000 E				Call Crlf
+ 00001C98  E8 FFFFE65F					Call StatsQuestionGenerator
+ 00001C9D  E8 00000000 E				Call Crlf
+ 00001CA2  E9 0000014E					jmp Term
+ 00001CA7					StatsPCalling:
+ 00001CA7  E8 00000000 E				Call Crlf
+ 00001CAC  E8 FFFFE64B					Call StatsQuestionGenerator
+ 00001CB1  E8 00000000 E				Call Crlf
+ 00001CB6  E8 00000000 E				Call Crlf
+ 00001CBB  E8 FFFFE577					Call MathsQuestionGenerator
+ 00001CC0  E9 00000130					jmp Term
+ 00001CC5				MathsCalling:
+ 00001CC5  E8 FFFFE56D				Call MathsQuestionGenerator
+ 00001CCA					ReloopMaths:
+ 00001CCA  BA 00000879 R			mov edx,offset menu2
+ 00001CCF  E8 00000000 E			Call Crlf
+ 00001CD4  E8 00000000 E			Call WriteString
+ 00001CD9  E8 00000000 E			Call Crlf
+ 00001CDE  BA 000008A1 R			mov edx,offset menu4
+ 00001CE3  E8 00000000 E			Call WriteString
+ 00001CE8  E8 00000000 E			Call Crlf
+ 00001CED  BA 00000860 R			mov edx,offset menu1
+ 00001CF2  E8 00000000 E			Call WriteString
+ 00001CF7  E8 00000000 E			Call ReadInt
+ 00001CFC  3C 01				cmp al,1
+ 00001CFE  74 1F				je PhysicsMCalling
+ 00001D00  3C 03				cmp al,3
+ 00001D02  74 3E				je StatsMCalling
+ 00001D04  BA 000008C5 R			mov edx,offset ErrorMsg
+ 00001D09  E8 00000000 E			Call WriteString
+ 00001D0E  B8 000003E8				mov eax,1000
+ 00001D13  E8 00000000 E			Call Delay
+ 00001D18  E8 00000000 E			Call Clrscr
+ 00001D1D  EB AB				jmp ReloopMaths
+ 00001D1F					PhysicsMCalling:
+ 00001D1F  E8 00000000 E				Call Crlf
+ 00001D24  E8 FFFFE417					Call PhysicsQuestionGenerator
+ 00001D29  E8 00000000 E				Call Crlf
+ 00001D2E  E8 00000000 E				Call Crlf
+ 00001D33  E8 FFFFE5C4					Call StatsQuestionGenerator
+ 00001D38  E8 00000000 E				Call Crlf
+ 00001D3D  E9 000000B3					jmp Term
+ 00001D42					StatsMCalling:
+ 00001D42  E8 00000000 E				Call Crlf
+ 00001D47  E8 FFFFE5B0					Call StatsQuestionGenerator
+ 00001D4C  E8 00000000 E				Call Crlf
+ 00001D51  E8 00000000 E				Call Crlf
+ 00001D56  E8 FFFFE3E5					Call PhysicsQuestionGenerator
+ 00001D5B  E9 00000095					jmp Term
+ 00001D60				StatsCalling:
+ 00001D60  E8 FFFFE597				Call StatsQuestionGenerator
+ 00001D65					ReloopStats:
+ 00001D65  BA 00000879 R			mov edx,offset menu2
+ 00001D6A  E8 00000000 E			Call Crlf
+ 00001D6F  E8 00000000 E			Call WriteString
+ 00001D74  E8 00000000 E			Call Crlf
+ 00001D79  BA 0000088B R			mov edx,offset menu3
+ 00001D7E  E8 00000000 E			Call WriteString
+ 00001D83  E8 00000000 E			Call Crlf
+ 00001D88  BA 00000860 R			mov edx,offset menu1
+ 00001D8D  E8 00000000 E			Call WriteString
+ 00001D92  E8 00000000 E			Call ReadInt
+ 00001D97  3C 01				cmp al,1
+ 00001D99  74 1F				je PhysicsSCalling
+ 00001D9B  3C 02				cmp al,2
+ 00001D9D  74 3B				je MathsSCalling
+ 00001D9F  BA 000008C5 R			mov edx,offset ErrorMsg
+ 00001DA4  E8 00000000 E			Call WriteString
+ 00001DA9  B8 000003E8				mov eax,1000
+ 00001DAE  E8 00000000 E			Call Delay
+ 00001DB3  E8 00000000 E			Call Clrscr
+ 00001DB8  EB AB				jmp ReloopStats
+ 00001DBA					PhysicsSCalling:
+ 00001DBA  E8 00000000 E				Call Crlf
+ 00001DBF  E8 FFFFE37C					Call PhysicsQuestionGenerator
+ 00001DC4  E8 00000000 E				Call Crlf
+ 00001DC9  E8 00000000 E				Call Crlf
+ 00001DCE  E8 FFFFE464					Call MathsQuestionGenerator
+ 00001DD3  E8 00000000 E				Call Crlf
+ 00001DD8  EB 1B					jmp Term
+ 00001DDA					MathsSCalling:
+ 00001DDA  E8 00000000 E				Call Crlf
+ 00001DDF  E8 FFFFE453					Call MathsQuestionGenerator
+ 00001DE4  E8 00000000 E				Call Crlf
+ 00001DE9  E8 00000000 E				Call Crlf
+ 00001DEE  E8 FFFFE34D					Call PhysicsQuestionGenerator
+ 00001DF3  EB 00					jmp Term
+ 00001DF5				Term:
+ 00001DF5  E8 00000000 E			Call Clrscr
+ 00001DFA  BA 000006CF R			mov edx,offset TotalScoreMsg
+ 00001DFF  E8 00000000 E			Call WriteString
+ 00001E04  0F B6 05				movzx eax,Total_Score
+	   0000063F R
+ 00001E0B  E8 00000000 E			Call WriteDec
+ 00001E10  E8 00000000 E			Call Crlf
+ 00001E15			main ENDP
+				END main
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    11/28/19 15:28:16
+My First Program (Text.asm				     Symbols 2 - 1
+
+
+
+
+Structures and Unions:
+
+                N a m e                  Size
+                                         Offset      Type
+
+CONSOLE_CURSOR_INFO  . . . . . .	 00000008
+  dwSize . . . . . . . . . . . .	 00000000	 DWord
+  bVisible . . . . . . . . . . .	 00000004	 DWord
+CONSOLE_SCREEN_BUFFER_INFO . . .	 00000016
+  dwSize . . . . . . . . . . . .	 00000000	 DWord
+  dwCursorPosition . . . . . . .	 00000004	 DWord
+  wAttributes  . . . . . . . . .	 00000008	 Word
+  srWindow . . . . . . . . . . .	 0000000A	 QWord
+  dwMaximumWindowSize  . . . . .	 00000012	 DWord
+COORD  . . . . . . . . . . . . .	 00000004
+  X  . . . . . . . . . . . . . .	 00000000	 Word
+  Y  . . . . . . . . . . . . . .	 00000002	 Word
+FILETIME . . . . . . . . . . . .	 00000008
+  loDateTime . . . . . . . . . .	 00000000	 DWord
+  hiDateTime . . . . . . . . . .	 00000004	 DWord
+FOCUS_EVENT_RECORD . . . . . . .	 00000004
+  bSetFocus  . . . . . . . . . .	 00000000	 DWord
+FPU_ENVIRON  . . . . . . . . . .	 0000001C
+  controlWord  . . . . . . . . .	 00000000	 Word
+  statusWord . . . . . . . . . .	 00000004	 Word
+  tagWord  . . . . . . . . . . .	 00000008	 Word
+  instrPointerOffset . . . . . .	 0000000C	 DWord
+  instrPointerSelector . . . . .	 00000010	 DWord
+  operandPointerOffset . . . . .	 00000014	 DWord
+  operandPointerSelector . . . .	 00000018	 Word
+INPUT_RECORD . . . . . . . . . .	 00000014
+  EventType  . . . . . . . . . .	 00000000	 Word
+  Event  . . . . . . . . . . . .	 00000004	 XmmWord
+  bKeyDown . . . . . . . . . . .	 00000000	 DWord
+  wRepeatCount . . . . . . . . .	 00000004	 Word
+  wVirtualKeyCode  . . . . . . .	 00000006	 Word
+  wVirtualScanCode . . . . . . .	 00000008	 Word
+  uChar  . . . . . . . . . . . .	 0000000A	 Word
+  UnicodeChar  . . . . . . . . .	 00000000	 Word
+  AsciiChar  . . . . . . . . . .	 00000000	 Byte
+  dwControlKeyState  . . . . . .	 0000000C	 DWord
+  dwMousePosition  . . . . . . .	 00000000	 DWord
+  dwButtonState  . . . . . . . .	 00000004	 DWord
+  dwMouseControlKeyState . . . .	 00000008	 DWord
+  dwEventFlags . . . . . . . . .	 0000000C	 DWord
+  dwSize . . . . . . . . . . . .	 00000000	 DWord
+  dwCommandId  . . . . . . . . .	 00000000	 DWord
+  bSetFocus  . . . . . . . . . .	 00000000	 DWord
+KEY_EVENT_RECORD . . . . . . . .	 00000010
+  bKeyDown . . . . . . . . . . .	 00000000	 DWord
+  wRepeatCount . . . . . . . . .	 00000004	 Word
+  wVirtualKeyCode  . . . . . . .	 00000006	 Word
+  wVirtualScanCode . . . . . . .	 00000008	 Word
+  uChar  . . . . . . . . . . . .	 0000000A	 Word
+  UnicodeChar  . . . . . . . . .	 00000000	 Word
+  AsciiChar  . . . . . . . . . .	 00000000	 Byte
+  dwControlKeyState  . . . . . .	 0000000C	 DWord
+MENU_EVENT_RECORD  . . . . . . .	 00000004
+  dwCommandId  . . . . . . . . .	 00000000	 DWord
+MOUSE_EVENT_RECORD . . . . . . .	 00000010
+  dwMousePosition  . . . . . . .	 00000000	 DWord
+  dwButtonState  . . . . . . . .	 00000004	 DWord
+  dwMouseControlKeyState . . . .	 00000008	 DWord
+  dwEventFlags . . . . . . . . .	 0000000C	 DWord
+SMALL_RECT . . . . . . . . . . .	 00000008
+  Left . . . . . . . . . . . . .	 00000000	 Word
+  Top  . . . . . . . . . . . . .	 00000002	 Word
+  Right  . . . . . . . . . . . .	 00000004	 Word
+  Bottom . . . . . . . . . . . .	 00000006	 Word
+SYSTEMTIME . . . . . . . . . . .	 00000010
+  wYear  . . . . . . . . . . . .	 00000000	 Word
+  wMonth . . . . . . . . . . . .	 00000002	 Word
+  wDayOfWeek . . . . . . . . . .	 00000004	 Word
+  wDay . . . . . . . . . . . . .	 00000006	 Word
+  wHour  . . . . . . . . . . . .	 00000008	 Word
+  wMinute  . . . . . . . . . . .	 0000000A	 Word
+  wSecond  . . . . . . . . . . .	 0000000C	 Word
+  wMilliseconds  . . . . . . . .	 0000000E	 Word
+WINDOW_BUFFER_SIZE_RECORD  . . .	 00000004
+  dwSize . . . . . . . . . . . .	 00000000	 DWord
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 Para	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 000008ED Para	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00001E15 Para	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+Angular_Velocity . . . . . . . .	P Near	 00001948 _TEXT	Length= 000000B3 Public STDCALL
+  FillOther  . . . . . . . . . .	L Near	 000019B2 _TEXT	
+ArithmeticSeries . . . . . . . .	P Near	 000006BE _TEXT	Length= 00000138 Public STDCALL
+  AddFive  . . . . . . . . . . .	L Near	 000006EA _TEXT	
+  GenerateCommonDifference . . .	L Near	 000006F7 _TEXT	
+  AddFour  . . . . . . . . . . .	L Near	 00000714 _TEXT	
+  CalculateAnswer  . . . . . . .	L Near	 0000071C _TEXT	
+  FormSeries . . . . . . . . . .	L Near	 00000726 _TEXT	
+  SeriesPrintLabel . . . . . . .	L Near	 00000755 _TEXT	
+  PrintSeries  . . . . . . . . .	L Near	 00000761 _TEXT	
+  AddSix . . . . . . . . . . . .	L Near	 00000781 _TEXT	
+  CorrectAnswerLabel . . . . . .	L Near	 00000786 _TEXT	
+Centripetal_Acc  . . . . . . . .	P Near	 0000148F _TEXT	Length= 000000EB Public STDCALL
+  FillOther  . . . . . . . . . .	L Near	 00001531 _TEXT	
+CloseFile  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+CloseHandle  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Clrscr . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Compositenum . . . . . . . . . .	P Near	 00000891 _TEXT	Length= 0000009A Public STDCALL
+  l1 . . . . . . . . . . . . . .	L Near	 00000891 _TEXT	
+  l2 . . . . . . . . . . . . . .	L Near	 000008B7 _TEXT	
+  l3 . . . . . . . . . . . . . .	L Near	 000008BD _TEXT	
+  l4 . . . . . . . . . . . . . .	L Near	 000008C3 _TEXT	
+  l5 . . . . . . . . . . . . . .	L Near	 000008E4 _TEXT	
+  notequal . . . . . . . . . . .	L Near	 000008F4 _TEXT	
+  equal  . . . . . . . . . . . .	L Near	 00000910 _TEXT	
+  term . . . . . . . . . . . . .	L Near	 00000925 _TEXT	
+CreateFileA  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+CreateOutputFile . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Crlf . . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Current  . . . . . . . . . . . .	P Near	 0000157A _TEXT	Length= 000000E2 Public STDCALL
+  FillOther  . . . . . . . . . .	L Near	 00001613 _TEXT	
+Delay  . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Distance . . . . . . . . . . . .	P Near	 000017E9 _TEXT	Length= 000000AF Public STDCALL
+  FillOther  . . . . . . . . . .	L Near	 0000184F _TEXT	
+DumpMem  . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+DumpRegs . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+FileTimeToDosDateTime  . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+FileTimeToSystemTime . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+FlushConsoleInputBuffer  . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+FormatMessageA . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Frequency  . . . . . . . . . . .	P Near	 000019FB _TEXT	Length= 000000BB Public STDCALL
+GeometricSeries  . . . . . . . .	P Near	 00000AF1 _TEXT	Length= 00000100 Public STDCALL
+  CreateSeries . . . . . . . . .	L Near	 00000B36 _TEXT	
+  PrintSeries  . . . . . . . . .	L Near	 00000B69 _TEXT	
+GetCommandLineA  . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetCommandTail . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetConsoleCP . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetConsoleCursorInfo . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetConsoleMode . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetConsoleScreenBufferInfo . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetDateTime  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetFileTime  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetKeyState  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetLastError . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetLocalTime . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetMaxXY . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetMseconds  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetNumberOfConsoleInputEvents  .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetProcessHeap . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetStdHandle . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetSystemTime  . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetTextColor . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+GetTickCount . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Gotoxy . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+HeapAlloc  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+HeapCreate . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+HeapDestroy  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+HeapFree . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+HeapSize . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+IsDigit  . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Kinetic_Energy . . . . . . . . .	P Near	 0000135F _TEXT	Length= 00000130 Public STDCALL
+  ChangeVelocity . . . . . . . .	L Near	 000013BA _TEXT	
+  NoChange . . . . . . . . . . .	L Near	 000013CC _TEXT	
+  Calculations . . . . . . . . .	L Near	 000013D6 _TEXT	
+  FillOther  . . . . . . . . . .	L Near	 00001446 _TEXT	
+Linear_Momentum  . . . . . . . .	P Near	 00001898 _TEXT	Length= 000000B0 Public STDCALL
+  FillOther  . . . . . . . . . .	L Near	 000018FF _TEXT	
+LocalFree  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+MathsQuestionGenerator . . . . .	P Near	 00000237 _TEXT	Length= 00000039 Public STDCALL
+  PROCCalling  . . . . . . . . .	L Near	 0000025A _TEXT	
+MathsQuestions . . . . . . . . .	P Near	 000001E5 _TEXT	Length= 00000052 Public STDCALL
+  RegenerateNumber . . . . . . .	L Near	 000001E5 _TEXT	
+  CheckRepetation  . . . . . . .	L Near	 00000206 _TEXT	
+Maths  . . . . . . . . . . . . .	P Near	 0000017E _TEXT	Length= 00000067 Public STDCALL
+  CubeCalling  . . . . . . . . .	L Near	 000001A7 _TEXT	
+  SquareCalling  . . . . . . . .	L Near	 000001AE _TEXT	
+  GeometricCalling . . . . . . .	L Near	 000001B5 _TEXT	
+  ArithmeticCalling  . . . . . .	L Near	 000001BC _TEXT	
+  PalindromicCalling . . . . . .	L Near	 000001C3 _TEXT	
+  PentagonalCalling  . . . . . .	L Near	 000001CA _TEXT	
+  SquareFreeCalling  . . . . . .	L Near	 000001D1 _TEXT	
+  RelativeCalling  . . . . . . .	L Near	 000001D8 _TEXT	
+  TriangleCalling  . . . . . . .	L Near	 000001DF _TEXT	
+  Outside  . . . . . . . . . . .	L Near	 000001E4 _TEXT	
+MeanQuestion . . . . . . . . . .	P Near	 000010C9 _TEXT	Length= 000000EA Public STDCALL
+  GenerateMeanValues . . . . . .	L Near	 000010E2 _TEXT	
+  PrintSeries  . . . . . . . . .	L Near	 0000110A _TEXT	
+  CalculateSum . . . . . . . . .	L Near	 0000113E _TEXT	
+  FillOther  . . . . . . . . . .	L Near	 0000116A _TEXT	
+MedianQuestion . . . . . . . . .	P Near	 00000FB7 _TEXT	Length= 00000112 Public STDCALL
+  GenerateNumbers  . . . . . . .	L Near	 00000FD0 _TEXT	
+  PrintSeries  . . . . . . . . .	L Near	 00000FFE _TEXT	
+  EvenMethod . . . . . . . . . .	L Near	 0000102A _TEXT	
+  OddMethod  . . . . . . . . . .	L Near	 00001059 _TEXT	
+  Outside  . . . . . . . . . . .	L Near	 00001071 _TEXT	
+  FillOther  . . . . . . . . . .	L Near	 00001080 _TEXT	
+MessageBoxA  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Mode . . . . . . . . . . . . . .	P Near	 00000DA5 _TEXT	Length= 0000012B Public STDCALL
+  GenerateNumber . . . . . . . .	L Near	 00000DC3 _TEXT	
+  ChangeAH . . . . . . . . . . .	L Near	 00000DE0 _TEXT	
+  Loop_Label . . . . . . . . . .	L Near	 00000DE9 _TEXT	
+  CalculateFrequency . . . . . .	L Near	 00000E0C _TEXT	
+  FindMaximum  . . . . . . . . .	L Near	 00000E49 _TEXT	
+  loopagain  . . . . . . . . . .	L Near	 00000E63 _TEXT	
+  FillOther  . . . . . . . . . .	L Near	 00000E87 _TEXT	
+MsgBoxAsk  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+MsgBox . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Newton_Law . . . . . . . . . . .	P Near	 0000128D _TEXT	Length= 000000D2 Public STDCALL
+  FillOther  . . . . . . . . . .	L Near	 00001316 _TEXT	
+OpenInputFile  . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Palindromic_Number . . . . . . .	P Near	 000005C1 _TEXT	Length= 000000FD Public STDCALL
+  ThreeDigit . . . . . . . . . .	L Near	 000005F2 _TEXT	
+  TwoDigit . . . . . . . . . . .	L Near	 00000655 _TEXT	
+  Comparison . . . . . . . . . .	L Near	 0000068B _TEXT	
+  Palindrome . . . . . . . . . .	L Near	 000006AA _TEXT	
+  Term . . . . . . . . . . . . .	L Near	 000006B8 _TEXT	
+ParseDecimal32 . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ParseInteger32 . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+PeekConsoleInputA  . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Pentagonalnum  . . . . . . . . .	P Near	 00000D05 _TEXT	Length= 000000A0 Public STDCALL
+PhysicsQuestionGenerator . . . .	P Near	 00000140 _TEXT	Length= 0000003E Public STDCALL
+  PROCCalling  . . . . . . . . .	L Near	 00000168 _TEXT	
+PhysicsQuestions . . . . . . . .	P Near	 000000EE _TEXT	Length= 00000052 Public STDCALL
+  RegenerateNumber . . . . . . .	L Near	 000000EE _TEXT	
+  CheckRepetation  . . . . . . .	L Near	 0000010F _TEXT	
+Physics  . . . . . . . . . . . .	P Near	 00000071 _TEXT	Length= 0000007D Public STDCALL
+  NewtonLawCalling . . . . . . .	L Near	 000000A2 _TEXT	
+  CurrentCalling . . . . . . . .	L Near	 000000A9 _TEXT	
+  TorqueCalling  . . . . . . . .	L Near	 000000B0 _TEXT	
+  VelocityCalling  . . . . . . .	L Near	 000000B7 _TEXT	
+  DisplacementCalling  . . . . .	L Near	 000000BE _TEXT	
+  CentripetalCalling . . . . . .	L Near	 000000C5 _TEXT	
+  LinearMomentumCalling  . . . .	L Near	 000000CC _TEXT	
+  AngularVelocityCalling . . . .	L Near	 000000D3 _TEXT	
+  KineticCalling . . . . . . . .	L Near	 000000DA _TEXT	
+  FrequencyCalling . . . . . . .	L Near	 000000E1 _TEXT	
+  SpeedWaveCalling . . . . . . .	L Near	 000000E8 _TEXT	
+  Outside  . . . . . . . . . . .	L Near	 000000ED _TEXT	
+Random32 . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+RandomRange  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Randomize  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ReadChar . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ReadConsoleA . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ReadConsoleInputA  . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ReadDec  . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ReadFile . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ReadFloat  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ReadFromFile . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ReadHex  . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ReadInt  . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ReadKeyFlush . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ReadKey  . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ReadString . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Relativelyprime  . . . . . . . .	P Near	 0000092B _TEXT	Length= 000000CB Public STDCALL
+  firstnum . . . . . . . . . . .	L Near	 0000099B _TEXT	
+  secondnum  . . . . . . . . . .	L Near	 000009B0 _TEXT	
+  gcd  . . . . . . . . . . . . .	L Near	 000009C5 _TEXT	
+  notgcd . . . . . . . . . . . .	L Near	 000009DB _TEXT	
+Score  . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000071 Public STDCALL
+  ChangeScore  . . . . . . . . .	L Near	 0000003B _TEXT	
+  OutSide  . . . . . . . . . . .	L Near	 00000041 _TEXT	
+SetConsoleCursorInfo . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SetConsoleCursorPosition . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SetConsoleMode . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SetConsoleScreenBufferSize . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SetConsoleTextAttribute  . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SetConsoleTitleA . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SetConsoleWindowInfo . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SetFilePointer . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SetLocalTime . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SetTextColor . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+ShowFPUStack . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Sleep  . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Slope  . . . . . . . . . . . . .	P Near	 00000ED0 _TEXT	Length= 000000E7 Public STDCALL
+  cal  . . . . . . . . . . . . .	L Near	 00000F38 _TEXT	
+StatisticsQuestion . . . . . . .	P Near	 000002AB _TEXT	Length= 00000051 Public STDCALL
+  RegenerateNumber . . . . . . .	L Near	 000002AB _TEXT	
+  CheckRepetation  . . . . . . .	L Near	 000002CC _TEXT	
+Statistics . . . . . . . . . . .	P Near	 00000270 _TEXT	Length= 0000003B Public STDCALL
+  MeanCalling  . . . . . . . . .	L Near	 00000289 _TEXT	
+  MedianCalling  . . . . . . . .	L Near	 00000290 _TEXT	
+  ModeCalling  . . . . . . . . .	L Near	 00000297 _TEXT	
+  InterpolationCalling . . . . .	L Near	 0000029E _TEXT	
+  ValueSummationCalling  . . . .	L Near	 000002A5 _TEXT	
+  Outside  . . . . . . . . . . .	L Near	 000002AA _TEXT	
+StatsQuestionGenerator . . . . .	P Near	 000002FC _TEXT	Length= 00000039 Public STDCALL
+  PROCCalling  . . . . . . . . .	L Near	 0000031F _TEXT	
+StrLength  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Str_compare  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Str_copy . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Str_length . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Str_trim . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Str_ucase  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+SystemTimeToFileTime . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Torque . . . . . . . . . . . . .	P Near	 0000165C _TEXT	Length= 000000C6 Public STDCALL
+  FillOther  . . . . . . . . . .	L Near	 000016D9 _TEXT	
+TriangleNum  . . . . . . . . . .	P Near	 000007F6 _TEXT	Length= 0000009B Public STDCALL
+  FillOther  . . . . . . . . . .	L Near	 00000848 _TEXT	
+ValueSummation . . . . . . . . .	P Near	 000011B3 _TEXT	Length= 000000DA Public STDCALL
+  GenerateValues . . . . . . . .	L Near	 000011D1 _TEXT	
+  CalculateSum . . . . . . . . .	L Near	 0000120A _TEXT	
+  FillOther  . . . . . . . . . .	L Near	 00001244 _TEXT	
+Velocity . . . . . . . . . . . .	P Near	 00001722 _TEXT	Length= 000000C7 Public STDCALL
+  FillOther  . . . . . . . . . .	L Near	 000017A0 _TEXT	
+WaitMsg  . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+Wave_Speed . . . . . . . . . . .	P Near	 00001AB6 _TEXT	Length= 000000B3 Public STDCALL
+WriteAnsTrue . . . . . . . . . .	P Near	 00000335 _TEXT	Length= 000000C6 Public STDCALL
+  ChangeAscii  . . . . . . . . .	L Near	 0000038F _TEXT	
+  Display  . . . . . . . . . . .	L Near	 00000391 _TEXT	
+  CorrectLabel . . . . . . . . .	L Near	 000003A8 _TEXT	
+  FalseLabel . . . . . . . . . .	L Near	 000003D5 _TEXT	
+  Term . . . . . . . . . . . . .	L Near	 000003FA _TEXT	
+WriteBinB  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteBin . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteChar  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteConsoleA  . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteConsoleOutputAttribute  . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteConsoleOutputCharacterA . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteDec . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteFile  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteFloat . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteHexB  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteHex . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteInt . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteStackFrameName  . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteStackFrame  . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteString  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteToFile  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+WriteWindowsMsg  . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+cubenum  . . . . . . . . . . . .	P Near	 00000BF1 _TEXT	Length= 0000008E Public STDCALL
+isquarefree  . . . . . . . . . .	P Near	 000009F6 _TEXT	Length= 000000FB Public STDCALL
+  l1 . . . . . . . . . . . . . .	L Near	 00000A1E _TEXT	
+  againdividetwo . . . . . . . .	L Near	 00000A56 _TEXT	
+  looping  . . . . . . . . . . .	L Near	 00000A82 _TEXT	
+  l2 . . . . . . . . . . . . . .	L Near	 00000A9F _TEXT	
+  l3 . . . . . . . . . . . . . .	L Near	 00000ADD _TEXT	
+main . . . . . . . . . . . . . .	P Near	 00001B69 _TEXT	Length= 000002AC Public STDCALL
+  ReloopMain . . . . . . . . . .	L Near	 00001B69 _TEXT	
+  PhysicsCalling . . . . . . . .	L Near	 00001C2A _TEXT	
+  ReloopPhysics  . . . . . . . .	L Near	 00001C2F _TEXT	
+  MathsPCalling  . . . . . . . .	L Near	 00001C84 _TEXT	
+  StatsPCalling  . . . . . . . .	L Near	 00001CA7 _TEXT	
+  MathsCalling . . . . . . . . .	L Near	 00001CC5 _TEXT	
+  ReloopMaths  . . . . . . . . .	L Near	 00001CCA _TEXT	
+  PhysicsMCalling  . . . . . . .	L Near	 00001D1F _TEXT	
+  StatsMCalling  . . . . . . . .	L Near	 00001D42 _TEXT	
+  StatsCalling . . . . . . . . .	L Near	 00001D60 _TEXT	
+  ReloopStats  . . . . . . . . .	L Near	 00001D65 _TEXT	
+  PhysicsSCalling  . . . . . . .	L Near	 00001DBA _TEXT	
+  MathsSCalling  . . . . . . . .	L Near	 00001DDA _TEXT	
+  Term . . . . . . . . . . . . .	L Near	 00001DF5 _TEXT	
+printf . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External C
+scanf  . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External C
+sqnum  . . . . . . . . . . . . .	P Near	 00000C7F _TEXT	Length= 00000086 Public STDCALL
+writeans . . . . . . . . . . . .	P Near	 000003FB _TEXT	Length= 000001C6 Public STDCALL
+  printans . . . . . . . . . . .	L Near	 00000438 _TEXT	
+  l1 . . . . . . . . . . . . . .	L Near	 00000450 _TEXT	
+  wrongans . . . . . . . . . . .	L Near	 00000458 _TEXT	
+  Optiona1 . . . . . . . . . . .	L Near	 0000046C _TEXT	
+  Optionb1 . . . . . . . . . . .	L Near	 00000491 _TEXT	
+  Optionc1 . . . . . . . . . . .	L Near	 000004B6 _TEXT	
+  Optiond1 . . . . . . . . . . .	L Near	 000004DE _TEXT	
+  rightans . . . . . . . . . . .	L Near	 00000506 _TEXT	
+  Optiona  . . . . . . . . . . .	L Near	 0000051A _TEXT	
+  Optionb  . . . . . . . . . . .	L Near	 0000053E _TEXT	
+  Optionc  . . . . . . . . . . .	L Near	 00000562 _TEXT	
+  Optiond  . . . . . . . . . . .	L Near	 00000586 _TEXT	
+  end2 . . . . . . . . . . . . .	L Near	 000005AA _TEXT	
+  nullprint1 . . . . . . . . . .	L Near	 000005B4 _TEXT	
+wsprintfA  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External C
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+ALT_MASK . . . . . . . . . . . .	Number	 00000003h   
+AnswerMsg1 . . . . . . . . . . .	Byte	 00000696 _DATA	
+AnswerMsg  . . . . . . . . . . .	Byte	 00000667 _DATA	
+CAPSLOCK_ON  . . . . . . . . . .	Number	 00000080h   
+CREATE_ALWAYS  . . . . . . . . .	Number	 00000002h   
+CREATE_NEW . . . . . . . . . . .	Number	 00000001h   
+CTRL_MASK  . . . . . . . . . . .	Number	 0000000Ch   
+Common_Diff  . . . . . . . . . .	Byte	 00000475 _DATA	
+CompositeNumber  . . . . . . . .	Byte	 00000486 _DATA	
+CorrectAnswer  . . . . . . . . .	Word	 00000637 _DATA	
+Count  . . . . . . . . . . . . .	Byte	 000008EC _DATA	
+CreateFile . . . . . . . . . . .	Text   	 CreateFileA
+DO_NOT_SHARE . . . . . . . . . .	Number	 00000000h   
+ENABLE_ECHO_INPUT  . . . . . . .	Number	 00000004h   
+ENABLE_LINE_INPUT  . . . . . . .	Number	 00000002h   
+ENABLE_MOUSE_INPUT . . . . . . .	Number	 00000010h   
+ENABLE_PROCESSED_INPUT . . . . .	Number	 00000001h   
+ENABLE_PROCESSED_OUTPUT  . . . .	Number	 00000001h   
+ENABLE_WINDOW_INPUT  . . . . . .	Number	 00000008h   
+ENABLE_WRAP_AT_EOL_OUTPUT  . . .	Number	 00000002h   
+ENHANCED_KEY . . . . . . . . . .	Number	 00000100h   
+ErrorMsg . . . . . . . . . . . .	Byte	 000008C5 _DATA	
+FALSE  . . . . . . . . . . . . .	Number	 00000000h   
+FILE_APPEND_DATA . . . . . . . .	Number	 00000004h   
+FILE_ATTRIBUTE_ARCHIVE . . . . .	Number	 00000020h   
+FILE_ATTRIBUTE_COMPRESSED  . . .	Number	 00000800h   
+FILE_ATTRIBUTE_DEVICE  . . . . .	Number	 00000040h   
+FILE_ATTRIBUTE_DIRECTORY . . . .	Number	 00000010h   
+FILE_ATTRIBUTE_ENCRYPTED . . . .	Number	 00004000h   
+FILE_ATTRIBUTE_HIDDEN  . . . . .	Number	 00000002h   
+FILE_ATTRIBUTE_NORMAL  . . . . .	Number	 00000080h   
+FILE_ATTRIBUTE_NOT_CONTENT_INDEXED .	Number	 00002000h   
+FILE_ATTRIBUTE_OFFLINE . . . . .	Number	 00001000h   
+FILE_ATTRIBUTE_READONLY  . . . .	Number	 00000001h   
+FILE_ATTRIBUTE_REPARSE_POINT . .	Number	 00000400h   
+FILE_ATTRIBUTE_SPARSE_FILE . . .	Number	 00000200h   
+FILE_ATTRIBUTE_SYSTEM  . . . . .	Number	 00000004h   
+FILE_ATTRIBUTE_TEMPORARY . . . .	Number	 00000100h   
+FILE_BEGIN . . . . . . . . . . .	Number	 00000000h   
+FILE_CURRENT . . . . . . . . . .	Number	 00000001h   
+FILE_DELETE_CHILD  . . . . . . .	Number	 00000040h   
+FILE_END . . . . . . . . . . . .	Number	 00000002h   
+FILE_READ_DATA . . . . . . . . .	Number	 00000001h   
+FILE_SHARE_DELETE  . . . . . . .	Number	 00000004h   
+FILE_SHARE_READ  . . . . . . . .	Number	 00000001h   
+FILE_SHARE_WRITE . . . . . . . .	Number	 00000002h   
+FILE_WRITE_DATA  . . . . . . . .	Number	 00000002h   
+FOCUS_EVENT  . . . . . . . . . .	Number	 00000010h   
+FORMAT_MESSAGE_ALLOCATE_BUFFER .	Number	 00000100h   
+FORMAT_MESSAGE_FROM_SYSTEM . . .	Number	 00001000h   
+FalseMsg . . . . . . . . . . . .	Byte	 00000661 _DATA	
+FirstNumber  . . . . . . . . . .	Byte	 00000488 _DATA	
+First_Term . . . . . . . . . . .	Byte	 00000474 _DATA	
+FormatMessage  . . . . . . . . .	Text   	 FormatMessageA
+FreqMode . . . . . . . . . . . .	Byte	 00000347 _DATA	
+GCommon_Diff . . . . . . . . . .	Word	 00000478 _DATA	
+GENERIC_ALL  . . . . . . . . . .	Number	 10000000h   
+GENERIC_EXECUTE  . . . . . . . .	Number	 20000000h   
+GENERIC_READ . . . . . . . . . .	Number	 -80000000h   
+GENERIC_WRITE  . . . . . . . . .	Number	 40000000h   
+GFirst_Term  . . . . . . . . . .	Word	 00000476 _DATA	
+GSeries  . . . . . . . . . . . .	Word	 0000047A _DATA	
+GetCommandLine . . . . . . . . .	Text   	 GetCommandLineA
+HANDLE . . . . . . . . . . . . .	Text   	 DWORD
+HEAP_GENERATE_EXCEPTIONS . . . .	Number	 00000004h   
+HEAP_GROWABLE  . . . . . . . . .	Number	 00000002h   
+HEAP_NO_SERIALIZE  . . . . . . .	Number	 00000001h   
+HEAP_REALLOC_IN_PLACE_ONLY . . .	Number	 00000010h   
+HEAP_ZERO_MEMORY . . . . . . . .	Number	 00000008h   
+IDABORT  . . . . . . . . . . . .	Number	 00000003h   
+IDCANCEL . . . . . . . . . . . .	Number	 00000002h   
+IDCLOSE  . . . . . . . . . . . .	Number	 00000008h   
+IDCONTINUE . . . . . . . . . . .	Number	 0000000Bh   
+IDHELP . . . . . . . . . . . . .	Number	 00000009h   
+IDIGNORE . . . . . . . . . . . .	Number	 00000005h   
+IDNO . . . . . . . . . . . . . .	Number	 00000007h   
+IDOK . . . . . . . . . . . . . .	Number	 00000001h   
+IDRETRY  . . . . . . . . . . . .	Number	 00000004h   
+IDTIMEOUT  . . . . . . . . . . .	Number	 00007D00h   
+IDTRYAGAIN . . . . . . . . . . .	Number	 0000000Ah   
+IDYES  . . . . . . . . . . . . .	Number	 00000006h   
+INVALID_HANDLE_VALUE . . . . . .	Number	 -00000001h   
+KBDOWN_FLAG  . . . . . . . . . .	Number	 00000001h   
+KEY_EVENT  . . . . . . . . . . .	Number	 00000001h   
+KEY_MASKS  . . . . . . . . . . .	Number	 0000001Fh   
+LEFT_ALT_PRESSED . . . . . . . .	Number	 00000002h   
+LEFT_CTRL_PRESSED  . . . . . . .	Number	 00000008h   
+MB_ABORTRETRYIGNORE  . . . . . .	Number	 00000002h   
+MB_APPLMODAL . . . . . . . . . .	Number	 00000000h   
+MB_CANCELTRYCONTINUE . . . . . .	Number	 00000006h   
+MB_DEFBUTTON1  . . . . . . . . .	Number	 00000000h   
+MB_DEFBUTTON2  . . . . . . . . .	Number	 00000100h   
+MB_DEFBUTTON3  . . . . . . . . .	Number	 00000200h   
+MB_DEFBUTTON4  . . . . . . . . .	Number	 00000300h   
+MB_HELP  . . . . . . . . . . . .	Number	 00004000h   
+MB_ICONASTERISK  . . . . . . . .	Number	 00000040h   
+MB_ICONERROR . . . . . . . . . .	Number	 00000010h   
+MB_ICONEXCLAMATION . . . . . . .	Number	 00000030h   
+MB_ICONHAND  . . . . . . . . . .	Number	 00000010h   
+MB_ICONINFORMATION . . . . . . .	Number	 00000040h   
+MB_ICONQUESTION  . . . . . . . .	Number	 00000020h   
+MB_ICONSTOP  . . . . . . . . . .	Number	 00000010h   
+MB_ICONWARNING . . . . . . . . .	Number	 00000030h   
+MB_OKCANCEL  . . . . . . . . . .	Number	 00000001h   
+MB_OK  . . . . . . . . . . . . .	Number	 00000000h   
+MB_RETRYCANCEL . . . . . . . . .	Number	 00000005h   
+MB_SYSTEMMODAL . . . . . . . . .	Number	 00001000h   
+MB_TASKMODAL . . . . . . . . . .	Number	 00002000h   
+MB_USERICON  . . . . . . . . . .	Number	 00000080h   
+MB_YESNOCANCEL . . . . . . . . .	Number	 00000003h   
+MB_YESNO . . . . . . . . . . . .	Number	 00000004h   
+MENU_EVENT . . . . . . . . . . .	Number	 00000008h   
+MOUSE_EVENT  . . . . . . . . . .	Number	 00000002h   
+MathsQNumber . . . . . . . . . .	Byte	 000008EB _DATA	
+MathsQuestionCount . . . . . . .	Byte	 000008E4 _DATA	
+Mean . . . . . . . . . . . . . .	Byte	 0000030F _DATA	
+Median1  . . . . . . . . . . . .	Byte	 0000031F _DATA	
+MessageBox . . . . . . . . . . .	Text   	 MessageBoxA
+Mmsg1  . . . . . . . . . . . . .	Byte	 0000048D _DATA	
+Mmsg2  . . . . . . . . . . . . .	Byte	 000004C0 _DATA	
+Mmsg3  . . . . . . . . . . . . .	Byte	 000004F5 _DATA	
+Mmsg4  . . . . . . . . . . . . .	Byte	 0000051C _DATA	
+Mmsg5  . . . . . . . . . . . . .	Byte	 00000549 _DATA	
+Mmsg6  . . . . . . . . . . . . .	Byte	 0000057A _DATA	
+Mmsg7  . . . . . . . . . . . . .	Byte	 000005AF _DATA	
+Mmsg8  . . . . . . . . . . . . .	Byte	 000005E4 _DATA	
+Mmsg9  . . . . . . . . . . . . .	Byte	 00000608 _DATA	
+ModeArr  . . . . . . . . . . . .	Byte	 00000338 _DATA	
+NULL . . . . . . . . . . . . . .	Number	 00000000h   
+NUMLOCK_ON . . . . . . . . . . .	Number	 00000020h   
+OPEN_ALWAYS  . . . . . . . . . .	Number	 00000004h   
+OPEN_EXISTING  . . . . . . . . .	Number	 00000003h   
+Options1 . . . . . . . . . . . .	Byte	 00000644 _DATA	
+Options2 . . . . . . . . . . . .	Byte	 0000064A _DATA	
+Options3 . . . . . . . . . . . .	Byte	 00000650 _DATA	
+Options4 . . . . . . . . . . . .	Byte	 00000656 _DATA	
+OtherOptions . . . . . . . . . .	Word	 00000639 _DATA	
+PalindromicNumberReverse . . . .	Byte	 00000461 _DATA	
+PalindromicNumber  . . . . . . .	Byte	 00000460 _DATA	
+PeekConsoleInput . . . . . . . .	Text   	 PeekConsoleInputA
+PhysicsQNumber . . . . . . . . .	Byte	 000008EA _DATA	
+PhysicsQuestionCount . . . . . .	Byte	 000008DC _DATA	
+Pmsg10 . . . . . . . . . . . . .	Byte	 000001E3 _DATA	
+Pmsg11 . . . . . . . . . . . . .	Byte	 00000237 _DATA	
+Pmsg12 . . . . . . . . . . . . .	Byte	 00000281 _DATA	
+Pmsg13 . . . . . . . . . . . . .	Byte	 000002C6 _DATA	
+Pmsg1  . . . . . . . . . . . . .	Byte	 00000000 _DATA	
+Pmsg4  . . . . . . . . . . . . .	Byte	 00000036 _DATA	
+Pmsg5  . . . . . . . . . . . . .	Byte	 0000007F _DATA	
+Pmsg6  . . . . . . . . . . . . .	Byte	 000000D4 _DATA	
+Pmsg7  . . . . . . . . . . . . .	Byte	 00000113 _DATA	
+Pmsg8  . . . . . . . . . . . . .	Byte	 00000159 _DATA	
+Pmsg9  . . . . . . . . . . . . .	Byte	 000001A0 _DATA	
+RIGHT_ALT_PRESSED  . . . . . . .	Number	 00000001h   
+RIGHT_CTRL_PRESSED . . . . . . .	Number	 00000004h   
+ReadConsoleInput . . . . . . . .	Text   	 ReadConsoleInputA
+ReadConsole  . . . . . . . . . .	Text   	 ReadConsoleA
+SCROLLLOCK_ON  . . . . . . . . .	Number	 00000040h   
+SHIFT_MASK . . . . . . . . . . .	Number	 00000010h   
+SHIFT_PRESSED  . . . . . . . . .	Number	 00000010h   
+STD_ERROR_HANDLE . . . . . . . .	Number	 -0000000Ch   
+STD_INPUT_HANDLE . . . . . . . .	Number	 -0000000Ah   
+STD_OUTPUT_HANDLE  . . . . . . .	Number	 -0000000Bh   
+SecondNumber . . . . . . . . . .	Byte	 00000489 _DATA	
+Series . . . . . . . . . . . . .	Byte	 00000465 _DATA	
+SetConsoleTitle  . . . . . . . .	Text   	 SetConsoleTitleA
+Smsg1  . . . . . . . . . . . . .	Byte	 00000366 _DATA	
+Smsg2  . . . . . . . . . . . . .	Byte	 00000397 _DATA	
+Smsg3ii  . . . . . . . . . . . .	Byte	 000003FA _DATA	
+Smsg3i . . . . . . . . . . . . .	Byte	 000003F6 _DATA	
+Smsg3  . . . . . . . . . . . . .	Byte	 000003C6 _DATA	
+Smsg4  . . . . . . . . . . . . .	Byte	 000003FF _DATA	
+Smsg5  . . . . . . . . . . . . .	Byte	 0000042F _DATA	
+StatisticsQNumber  . . . . . . .	Byte	 000008E9 _DATA	
+StatisticsQuestionCount  . . . .	Byte	 000008E1 _DATA	
+Summation  . . . . . . . . . . .	Byte	 00000357 _DATA	
+TAB  . . . . . . . . . . . . . .	Number	 00000009h   
+TRUE . . . . . . . . . . . . . .	Number	 00000001h   
+TRUNCATE_EXISTING  . . . . . . .	Number	 00000005h   
+TotalScoreMsg  . . . . . . . . .	Byte	 000006CF _DATA	
+Total_Score  . . . . . . . . . .	Byte	 0000063F _DATA	
+TrueMsg  . . . . . . . . . . . .	Byte	 0000065C _DATA	
+VK_11  . . . . . . . . . . . . .	Number	 000000BDh   
+VK_12  . . . . . . . . . . . . .	Number	 000000BBh   
+VK_ADD . . . . . . . . . . . . .	Number	 0000006Bh   
+VK_BACK  . . . . . . . . . . . .	Number	 00000008h   
+VK_CANCEL  . . . . . . . . . . .	Number	 00000003h   
+VK_CAPITAL . . . . . . . . . . .	Number	 00000014h   
+VK_CLEAR . . . . . . . . . . . .	Number	 0000000Ch   
+VK_CONTROL . . . . . . . . . . .	Number	 00000011h   
+VK_DECIMAL . . . . . . . . . . .	Number	 0000006Eh   
+VK_DELETE  . . . . . . . . . . .	Number	 0000002Eh   
+VK_DIVIDE  . . . . . . . . . . .	Number	 0000006Fh   
+VK_DOWN  . . . . . . . . . . . .	Number	 00000028h   
+VK_END . . . . . . . . . . . . .	Number	 00000023h   
+VK_ESCAPE  . . . . . . . . . . .	Number	 0000001Bh   
+VK_EXECUTE . . . . . . . . . . .	Number	 0000002Bh   
+VK_F10 . . . . . . . . . . . . .	Number	 00000079h   
+VK_F11 . . . . . . . . . . . . .	Number	 0000007Ah   
+VK_F12 . . . . . . . . . . . . .	Number	 0000007Bh   
+VK_F13 . . . . . . . . . . . . .	Number	 0000007Ch   
+VK_F14 . . . . . . . . . . . . .	Number	 0000007Dh   
+VK_F15 . . . . . . . . . . . . .	Number	 0000007Eh   
+VK_F16 . . . . . . . . . . . . .	Number	 0000007Fh   
+VK_F17 . . . . . . . . . . . . .	Number	 00000080h   
+VK_F18 . . . . . . . . . . . . .	Number	 00000081h   
+VK_F19 . . . . . . . . . . . . .	Number	 00000082h   
+VK_F1  . . . . . . . . . . . . .	Number	 00000070h   
+VK_F20 . . . . . . . . . . . . .	Number	 00000083h   
+VK_F21 . . . . . . . . . . . . .	Number	 00000084h   
+VK_F22 . . . . . . . . . . . . .	Number	 00000085h   
+VK_F23 . . . . . . . . . . . . .	Number	 00000086h   
+VK_F24 . . . . . . . . . . . . .	Number	 00000087h   
+VK_F2  . . . . . . . . . . . . .	Number	 00000071h   
+VK_F3  . . . . . . . . . . . . .	Number	 00000072h   
+VK_F4  . . . . . . . . . . . . .	Number	 00000073h   
+VK_F5  . . . . . . . . . . . . .	Number	 00000074h   
+VK_F6  . . . . . . . . . . . . .	Number	 00000075h   
+VK_F7  . . . . . . . . . . . . .	Number	 00000076h   
+VK_F8  . . . . . . . . . . . . .	Number	 00000077h   
+VK_F9  . . . . . . . . . . . . .	Number	 00000078h   
+VK_HELP  . . . . . . . . . . . .	Number	 0000002Fh   
+VK_HOME  . . . . . . . . . . . .	Number	 00000024h   
+VK_INSERT  . . . . . . . . . . .	Number	 0000002Dh   
+VK_LBUTTON . . . . . . . . . . .	Number	 00000001h   
+VK_LCONTROL  . . . . . . . . . .	Number	 000000A2h   
+VK_LEFT  . . . . . . . . . . . .	Number	 00000025h   
+VK_LMENU . . . . . . . . . . . .	Number	 000000A4h   
+VK_LSHIFT  . . . . . . . . . . .	Number	 000000A0h   
+VK_MENU  . . . . . . . . . . . .	Number	 00000012h   
+VK_MULTIPLY  . . . . . . . . . .	Number	 0000006Ah   
+VK_NEXT  . . . . . . . . . . . .	Number	 00000022h   
+VK_NUMLOCK . . . . . . . . . . .	Number	 00000090h   
+VK_NUMPAD0 . . . . . . . . . . .	Number	 00000060h   
+VK_NUMPAD1 . . . . . . . . . . .	Number	 00000061h   
+VK_NUMPAD2 . . . . . . . . . . .	Number	 00000062h   
+VK_NUMPAD3 . . . . . . . . . . .	Number	 00000063h   
+VK_NUMPAD4 . . . . . . . . . . .	Number	 00000064h   
+VK_NUMPAD5 . . . . . . . . . . .	Number	 00000065h   
+VK_NUMPAD6 . . . . . . . . . . .	Number	 00000066h   
+VK_NUMPAD7 . . . . . . . . . . .	Number	 00000067h   
+VK_NUMPAD8 . . . . . . . . . . .	Number	 00000068h   
+VK_NUMPAD9 . . . . . . . . . . .	Number	 00000069h   
+VK_PAUSE . . . . . . . . . . . .	Number	 00000013h   
+VK_PRINT . . . . . . . . . . . .	Number	 0000002Ah   
+VK_PRIOR . . . . . . . . . . . .	Number	 00000021h   
+VK_RBUTTON . . . . . . . . . . .	Number	 00000002h   
+VK_RCONTROL  . . . . . . . . . .	Number	 000000A3h   
+VK_RETURN  . . . . . . . . . . .	Number	 0000000Dh   
+VK_RIGHT . . . . . . . . . . . .	Number	 00000027h   
+VK_RMENU . . . . . . . . . . . .	Number	 000000A5h   
+VK_RSHIFT  . . . . . . . . . . .	Number	 000000A1h   
+VK_SCROLL  . . . . . . . . . . .	Number	 00000091h   
+VK_SEPARATER . . . . . . . . . .	Number	 0000006Ch   
+VK_SHIFT . . . . . . . . . . . .	Number	 00000010h   
+VK_SNAPSHOT  . . . . . . . . . .	Number	 0000002Ch   
+VK_SPACE . . . . . . . . . . . .	Number	 00000020h   
+VK_SUBTRACT  . . . . . . . . . .	Number	 0000006Dh   
+VK_TAB . . . . . . . . . . . . .	Number	 00000009h   
+VK_UP  . . . . . . . . . . . . .	Number	 00000026h   
+ValSquareFree  . . . . . . . . .	Word	 0000048A _DATA	
+WINDOW_BUFFER_SIZE_EVENT . . . .	Number	 00000004h   
+WelcomeMaths . . . . . . . . . .	Byte	 000006E5 _DATA	
+WelcomePhysics . . . . . . . . .	Byte	 0000073C _DATA	
+WelcomeQuiz1 . . . . . . . . . .	Byte	 00000841 _DATA	
+WelcomeQuiz  . . . . . . . . . .	Byte	 000007E9 _DATA	
+WelcomeStats . . . . . . . . . .	Byte	 00000790 _DATA	
+WriteConsoleOutputCharacter  . .	Text   	 WriteConsoleOutputCharacterA
+WriteConsole . . . . . . . . . .	Text   	 WriteConsoleA
+black  . . . . . . . . . . . . .	Number	 00000000h   
+blue . . . . . . . . . . . . . .	Number	 00000001h   
+brown  . . . . . . . . . . . . .	Number	 00000006h   
+cyan . . . . . . . . . . . . . .	Number	 00000003h   
+divTerm  . . . . . . . . . . . .	Byte	 00000351 _DATA	
+exit . . . . . . . . . . . . . .	Text   	 INVOKE ExitProcess,0
+gray . . . . . . . . . . . . . .	Number	 00000008h   
+green  . . . . . . . . . . . . .	Number	 00000002h   
+index  . . . . . . . . . . . . .	DWord	 00000353 _DATA	
+lightBlue  . . . . . . . . . . .	Number	 00000009h   
+lightCyan  . . . . . . . . . . .	Number	 0000000Bh   
+lightGray  . . . . . . . . . . .	Number	 00000007h   
+lightGreen . . . . . . . . . . .	Number	 0000000Ah   
+lightMagenta . . . . . . . . . .	Number	 0000000Dh   
+lightRed . . . . . . . . . . . .	Number	 0000000Ch   
+magenta  . . . . . . . . . . . .	Number	 00000005h   
+max  . . . . . . . . . . . . . .	Byte	 00000352 _DATA	
+menu1  . . . . . . . . . . . . .	Byte	 00000860 _DATA	
+menu2  . . . . . . . . . . . . .	Byte	 00000879 _DATA	
+menu3  . . . . . . . . . . . . .	Byte	 0000088B _DATA	
+menu4  . . . . . . . . . . . . .	Byte	 000008A1 _DATA	
+menu5  . . . . . . . . . . . . .	Byte	 000008B6 _DATA	
+msg1 . . . . . . . . . . . . . .	Byte	 0000044E _DATA	
+msg2 . . . . . . . . . . . . . .	Byte	 00000450 _DATA	
+msg  . . . . . . . . . . . . . .	Byte	 0000044C _DATA	
+mulTerm1 . . . . . . . . . . . .	Byte	 00000462 _DATA	
+mulTerm2 . . . . . . . . . . . .	Byte	 00000463 _DATA	
+mulTerm3 . . . . . . . . . . . .	Byte	 00000464 _DATA	
+print1 . . . . . . . . . . . . .	Word	 000008D4 _DATA	
+red  . . . . . . . . . . . . . .	Number	 00000004h   
+stime  . . . . . . . . . . . . .	DWord	 00000640 _DATA	
+temp . . . . . . . . . . . . . .	Byte	 00000487 _DATA	
+valAcc . . . . . . . . . . . . .	Byte	 00000455 _DATA	
+valCharge  . . . . . . . . . . .	Byte	 0000045A _DATA	
+valC . . . . . . . . . . . . . .	Byte	 0000031E _DATA	
+valDisplacement  . . . . . . . .	Byte	 0000045C _DATA	
+valForce . . . . . . . . . . . .	Byte	 00000456 _DATA	
+valFrequency . . . . . . . . . .	Byte	 0000045D _DATA	
+valLambda  . . . . . . . . . . .	Byte	 0000045E _DATA	
+valMass  . . . . . . . . . . . .	Byte	 00000457 _DATA	
+valMultiplier  . . . . . . . . .	Byte	 0000045F _DATA	
+valM . . . . . . . . . . . . . .	Byte	 0000031D _DATA	
+valRadius  . . . . . . . . . . .	Byte	 00000459 _DATA	
+valSquare  . . . . . . . . . . .	Byte	 0000048C _DATA	
+valTime  . . . . . . . . . . . .	Byte	 0000045B _DATA	
+valVelocity  . . . . . . . . . .	Byte	 00000458 _DATA	
+valY . . . . . . . . . . . . . .	Byte	 0000031C _DATA	
+white  . . . . . . . . . . . . .	Number	 0000000Fh   
+wsprintf . . . . . . . . . . . .	Text   	 wsprintfA
+yellow . . . . . . . . . . . . .	Number	 0000000Eh   
+
+	   0 Warnings
+	   0 Errors
